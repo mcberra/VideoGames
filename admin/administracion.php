@@ -33,7 +33,7 @@
       <a href="/games/admin/usuario/gestion.php" title="Listado de productos" class="w3-btn w3-round-xxlarge w3-black" > P </a>
     </div>
     <div class="w3-third w3-center">
-      <h3>Añadir producto</h3>
+      <h3>Añadir Producto</h3>
        <a href="/games/admin/usuario/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button></a>
     </div>
 
