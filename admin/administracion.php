@@ -23,7 +23,7 @@
   </div>
   <div class="w3-row">
     <div class="w3-third w3-center">
-      <h3> Añadir usuario</h3>
+      <h3> Añadir Usuario</h3>
       <a href="/games/admin/usuario/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button>  </a>
     
     </div>
