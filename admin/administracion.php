@@ -30,11 +30,11 @@
     <div class="w3-third w3-center">
       <h3>Listados</h3>
       <a href="/games/admin/usuario/gestion.php" title="Listado de Usuarios" class="w3-btn w3-round-xxlarge w3-black" > <i class=" w3-large fa fa-user"></i> </a>
-      <a href="/games/admin/usuario/gestion.php" title="Listado de productos" class="w3-btn w3-round-xxlarge w3-black" > P </a>
+      <a href="/games/admin/producto/gestion.php" title="Listado de productos" class="w3-btn w3-round-xxlarge w3-black" > P </a>
     </div>
     <div class="w3-third w3-center">
       <h3>Añadir Producto</h3>
-       <a href="/games/admin/usuario/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button></a>
+       <a href="/games/admin/producto/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button></a>
     </div>
 
 

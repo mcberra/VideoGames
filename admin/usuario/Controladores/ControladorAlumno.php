@@ -42,14 +42,14 @@ class ControladorAlumno {
      * @param type $nombre
      * @param type $dni
      */
-    public function listarAlumnos($nombre, $dni){
+    public function listarAlumnos($nombre, $apellido){
         // Creamos la conexión a la BD
         $lista=[];
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta pero esta vez paremtrizada
-        $consulta = "SELECT * FROM usuario WHERE nombre LIKE :nombre OR dni LIKE :dni";
-        $parametros = array(':nombre' => "%".$nombre."%", ':dni' => "%".$dni."%");
+        $consulta = "SELECT * FROM usuario WHERE nombre LIKE :nombre OR apellido LIKE :apellido";
+        $parametros = array(':nombre' => "%".$nombre."%", ':apellido' => "%".$apellido."%");
         // Obtenemos las filas directamente como objetos con las columnas de la tabla
         $res = $bd->consultarBD($consulta,$parametros);
         $filas=$res->fetchAll(PDO::FETCH_OBJ);
@@ -81,6 +81,20 @@ class ControladorAlumno {
         $bd->cerrarBD();
         return $estado;
     }
+
+    public function almacenarSesion($email, $password, $admin){
+        //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "INSERT INTO sesion (  email, password, 
+            admin) VALUES (  :email, :password, :admin )";
+        
+        $parametros= array(  ':email'=>$email,':password'=>$password,
+                            ':admin'=>$admin );
+        $estado = $bd->actualizarBD($consulta,$parametros);
+        $bd->cerrarBD();
+        return $estado;
+    }
     
     public function buscarAlumno($id){ 
         $bd = ControladorBD::getControlador();
@@ -105,11 +119,31 @@ class ControladorAlumno {
 
 
     
-    public function buscarAlumnoDni($nombre){ 
+    public function buscarDuplicado($email){ 
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "SELECT * FROM usuario  WHERE nombre = :nombre";
-        $parametros = array(':nombre' => $nombre);
+        $consulta = "SELECT * FROM usuario  WHERE email = :email";
+        $parametros = array(':email' => $email);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    }
+
+    public function buscarDuplicadoTel($telefono){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM usuario  WHERE telefono = :telefono";
+        $parametros = array(':telefono' => $telefono);
         $filas = $bd->consultarBD($consulta, $parametros);
         $res = $bd->consultarBD($consulta,$parametros);
         $filas=$res->fetchAll(PDO::FETCH_OBJ);
@@ -138,6 +172,18 @@ class ControladorAlumno {
         $bd->cerrarBD();
         return $estado;
     }
+
+    public function borrarSesion($email){ 
+        $estado=false;
+        // Borro el alumno de la
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "DELETE FROM sesion WHERE email = :email";
+        $parametros = array(':email' => $emailS);
+        $estado = $bd->actualizarBD($consulta,$parametros);
+        $bd->cerrarBD();
+        return $estado;
+    }
     
     public function actualizarAlumno($id, $nombre,$apellido, $email, $password, $admin, $telefono, $fecha, $imagen){
        // $alumno = new Alumno($id,$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
@@ -153,5 +199,7 @@ class ControladorAlumno {
         return $estado;
     }
     
+  
+     
     
 }

@@ -4,6 +4,41 @@ require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";
 require_once UTILITY_PATH."funciones.php";
+require_once CONTROLLER_PATH."ControladorBD.php";
+require_once MODEL_PATH."alumno.php";
+
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+$admins=[];
+$bd = ControladorBD::getControlador();
+$bd->abrirBD();
+$consulta = "SELECT email,password FROM usuario WHERE admin = 'si'";
+$filas = $bd->consultarBD($consulta);
+
+    foreach ($filas as $a) {
+        $mail = array_shift($a);// se queda con el primer elemento del array OJO sin su clave solo el elemento
+        //array_pop($a); //saca un elemento de un array
+        array_push($admins, $mail);  //introducimos los emails a un array 
+    }
+
+$bd->cerrarBD();
+
+
+
+ session_start();
+        if(!isset($_SESSION['USUARIO']['email'])){
+            //echo "entro a lista admin";
+            header("location: /games/admin/usuario/Vistas/Login.php");
+      exit();
+        }    
+
+       if(isset($_SESSION['USUARIO']['email']) && !in_array($_SESSION['USUARIO']['email'],$admins)){
+              //echo "entro a lista admin";
+              header("location: /games/admin/usuario/Vistas/error_idi.php");
+                exit();
+       }   
+
+/***************************************seguro******************************************************************** */
 
 $nombre =$apellido = $email = $password = $admin = $telefono  = $fecha = $imagen ="";
 $imagenAnterior = "";
@@ -137,8 +172,8 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                 $apellido = $usuario->getApellido();
                 $email = $usuario->getEmail();
                 $password = $usuario->getPassword();
-                $idioma = $usuario->getAdmin();
-                $matricula = $usuario->getTelefono();
+                $admin = $usuario->getAdmin();
+                $telefono = $usuario->getTelefono();
                 $fecha = $usuario->getFecha();
                 $imagen = $usuario->getImagen();
                 $imagenAnterior = $imagen;

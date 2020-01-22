@@ -1,18 +1,50 @@
 <?php
 
-// session_start();
-// if(!isset($_SESSION['USUARIO']['email']) || $_SESSION['USUARIO']['email'] != "admin@admin.com"){
-//     //echo $_SESSION['USUARIO']['email'];
-//     //exit();
-//     header("location: /pc/Vistas/login.php");
-//     exit();
-// }
+require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
+require_once CONTROLLER_PATH."ControladorAlumno.php";
+require_once CONTROLLER_PATH."ControladorImagen.php";
+require_once UTILITY_PATH."funciones.php";
+require_once CONTROLLER_PATH."ControladorBD.php";
+require_once MODEL_PATH."alumno.php";
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+$admins=[];
+$bd = ControladorBD::getControlador();
+$bd->abrirBD();
+$consulta = "SELECT email,password FROM usuario WHERE admin = 'si'";
+$filas = $bd->consultarBD($consulta);
+
+foreach ($filas as $a) {
+    $mail = array_shift($a);// se queda con el primer elemento del array OJO sin su clave solo el elemento
+    //array_pop($a); //saca un elemento de un array
+    array_push($admins, $mail);  //introducimos los emails a un array 
+}
+
+$bd->cerrarBD();
+
+
+
+session_start();
+    if(!isset($_SESSION['USUARIO']['email'])){
+        //echo "entro a lista admin";
+        header("location: /games/admin/usuario/Vistas/Login.php");
+  exit();
+    }    
+
+   if(isset($_SESSION['USUARIO']['email']) && !in_array($_SESSION['USUARIO']['email'],$admins)){
+          //echo "entro a lista admin";
+          header("location: /games/admin/usuario/Vistas/error_idi.php");
+            exit();
+   }
 ?>
-<div style="margin-left:25%">
+<div style="margin-left:19%">
 <h1>Listado de usuarios registrados</h1><br><br>
 <h3 class="pull-left">Buscar fichas de Usuarios</h3>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
@@ -109,9 +141,9 @@
                         echo "<td>" . $usuario->getFecha() . "</td>";
                         echo "<td><img src='/games/admin/usuario/imagenes/".$usuario->getImagen()."' width='150px' height='170px'></td>";
                         echo "<td>";
-                        echo "<p><a href='/games/admin/usuario/Vistas/read.php?id=" . encode($usuario->getId()) . "' title='Ver usuario' data-toggle='tooltip'class='w3-btn w3-black'> Ver</a></p>";
-                        echo "<p><a href='/games/admin/usuario/Vistas/update.php?id=" . encode($usuario->getId()) . "' title='Actualizar usuario' data-toggle='tooltip'class='w3-btn w3-black'> Modificar</a></p>";
-                        echo "<p><a href='/games/admin/usuario/Vistas/delete.php?id=" . encode($usuario->getId()) . "' title='Borar usuario' data-toggle='tooltip'class='w3-btn w3-black'> Borrar</a></p>";
+                        echo "<p><a href='/games/admin/usuario/Vistas/read.php?id=" . encode($usuario->getId()) . "' title='Ver usuario' data-toggle='tooltip'class='w3-btn w3-black'> <span class='glyphicon glyphicon-eye-open'></span></a></p>";
+                        echo "<p><a href='/games/admin/usuario/Vistas/update.php?id=" . encode($usuario->getId()) . "' title='Actualizar usuario' data-toggle='tooltip'class='w3-btn w3-black'> <span class='glyphicon glyphicon-refresh'></span></a></p>";
+                        echo "<p><a href='/games/admin/usuario/Vistas/delete.php?id=" . encode($usuario->getId()) . "' title='Borar usuario' data-toggle='tooltip'class='w3-btn w3-black'> <span class='glyphicon glyphicon-trash'></span></a></p>";
                         echo "</td>";
                         echo "</tr>";
                     }

@@ -38,7 +38,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <title>Gestion Tienda</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/games/4288favicon.ico">
+    <title>Game Over</title>
 </head>
 <body>
     
@@ -49,8 +50,8 @@
 <!--  -->
 
 <div class="w3-bar w3-blue-grey">
-      <a href="#" class="w3-bar-item  w3-button " title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
-      <a href="/games/admin/administracion.php" class="w3-bar-item  w3-button " title="Gestion de usuarios y productos"><span class="glyphicon glyphicon-cog"></span></i></a>
+      <a href="/games/indexCAT.php" class="w3-bar-item  w3-button " title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
+      <a href="/games/admin/administracion.php" class="w3-bar-item  w3-button " title="Gestion de usuarios y productos"><span class="glyphicon glyphicon-cog"></span> </i></a>
     
       
       <?php
@@ -60,13 +61,13 @@
               session_start();
               if(isset($_SESSION['USUARIO']['email'])){
                 // Menu de administrador
-                echo '<a href="#" class="w3-bar-item w3-button w3-black">Logged-in as: '.$_SESSION['USUARIO']['email'].'</a>';
-                echo '<a href="/games/admin/usuario/Vistas/login.php" class="w3-bar-item w3-blue-grey" title="Log-Out"><i class=" w3-large fa fa-sign-out"></i></a>';
+                echo '<button href="#" class="w3-bar-item w3-button w3-black">Logged-in as: '.$_SESSION['USUARIO']['email'].'</button>';
+                echo '<a href="/games/admin/usuario/Vistas/login.php" class="w3-bar-item w3-blue-grey" title="Log-Out"><i class=" w3-large fa fa-sign-out"> Log-out</i></a>';
                 
             } else{
                 // Menú normal
                 echo '<a href="#" class="w3-bar-item w3-button w3-black">Not logged</a>';
-                echo '<a href="/games/admin/usuario/Vistas/login.php" class="w3-bar-item w3-button w3-blue-grey" title="Log-In"><i class="w3-large fa fa-sign-in"></i></a>';
+                echo '<a href="/games/admin/usuario/Vistas/login.php" class="w3-bar-item w3-button w3-blue-grey" title="Log-In"><i class="w3-large fa fa-sign-in"> Log-in</i></a>';
           }
           
       ?>

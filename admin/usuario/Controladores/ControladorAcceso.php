@@ -51,7 +51,7 @@ class ControladorAcceso {
             $bd = ControladorBD::getControlador();
             $bd->abrirBD();
             // creamos la consulta pero esta vez paremtrizada
-            $consulta = "SELECT email, password FROM admin WHERE  email=:email and password=:password";
+            $consulta = "SELECT email, password FROM sesion WHERE  email=:email and password=:password";
             $parametros = array(':email' => $email, ':password' => $password);
             // Obtenemos las filas directamente como objetos con las columnas de la tabla
             $res = $bd->consultarBD($consulta,$parametros);
