@@ -12,7 +12,7 @@
  * @author link
  */
 
-require_once MODEL_PATH."alumno.php";
+require_once MODEL_PATH."producto.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
 require_once UTILITY_PATH."funciones.php";
 
@@ -153,5 +153,79 @@ class ControladorAlumno {
         return $estado;
     }
     
+    public function buscarID($email){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT id FROM usuarios  WHERE email = :email";
+        $parametros = array(':email' => $email);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    }
     
+    public function buscarDuplicado($nombre){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM producto  WHERE nombre = :nombre";
+        $parametros = array(':nombre' => $nombre);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $producto = new producto($a->id, $a->nombre, $a->tipo, $a->distribuidor, $a->precio, $a->descuento, $a->stock,  $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $producto;
+        }else{
+            return null;
+        }    
+    }
+
+    public function actualizarAlumno1($id, $nombre,$apellido, $email, $password, $admin, $telefono, $fecha, $imagen){
+        // $alumno = new Alumno($id,$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+         $bd = ControladorBD::getControlador();
+         $bd->abrirBD();
+         $consulta = "UPDATE usuarios SET  nombre=:nombre, apellido=:apellido, email=:email, password=:password, admin=:admin, 
+             telefono=:telefono, fecha=:fecha, imagen=:imagen 
+             WHERE id=:id";
+         $parametros= array(':id' => $id,  ':nombre'=>$nombre, ':apellido'=>$apellido, ':email'=>$email,':password'=>$password,
+                             ':admin'=>$admin, ':telefono'=>$telefono,':fecha'=>$fecha,':imagen'=>$imagen);
+         $estado = $bd->actualizarBD($consulta,$parametros);
+         $bd->cerrarBD();
+         return $estado;
+     }
+
+
+     public function buscarAlumno1($id){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM usuarios WHERE id = :id";
+        $parametros = array(':id' => $id);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre, $a->apellido, $a->email, $a->password, $a->admin, $a->telefono, $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    }
+
 }

@@ -9,14 +9,6 @@ require_once CONTROLLER_PATH."ControladorBD.php";
 require_once MODEL_PATH."alumno.php";
 
 
-
-session_start();
-if (!isset($_SESSION['USUARIO']['email'])) {
-  header("location: /games/admin/producto/Vistas/Login.php");
-}
-if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
-  header("location: /games/admin/producto/Vistas/Login.php");
-}    
     
 
      $nombre =$apellido = $email = $password = $admin = $telefono  = $fecha = $imagen ="";
@@ -172,7 +164,7 @@ if($intervalo->format('%R%a dias')>0){
             $estadoS = $controlador->almacenarSesion( $email, $password, $admin);
             //El registro se ha lamacenado corectamente
             //alerta("Alumno/a creado con éxito");
-            header("location: /games/admin/usuario/gestion.php");
+            header("location: /games/indexCAT.php");
             exit();
         }else{
             header("location: error.php");
@@ -193,51 +185,67 @@ if($intervalo->format('%R%a dias')>0){
   
 
 ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:30px;
+        
+	}
+    .form{
+      
+        background-image:url("/games/admin/producto/img/Cell.jpg");
+    
+    }
+</style>
 <?php require_once VIEW_PATH."header.php"; ?>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<h1><b>Crear Usuario</b></h1>
-        <p><b>Por favor rellene este formulario para añadir un nuevo usuario a la base de datos de la clase.</b></p>
-            <!-- Formulario-->
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-                    <!-- Nombre-->
-                    <label><b>Nombre</b></label><br>
-                            <input type="text" required name="nombre"  class="w3-input" value="<?php echo $nombre; ?>" 
-                                title="El nombre no puede contener números"
-                                minlength="1"><br>
-                    <label><b>Apellidos</b></label><br>
-                            <input type="text" required name="apellido"  class="w3-input" value="<?php echo $apellido; ?>" 
-                                title="Los apellido no puede contener números"
-                                minlength="1"><br>
-                    <!-- Email -->
-                    <label><b>E-Mail</b></label><br>
-                            <input type="email" required name="email"  class="w3-input" value="<?php echo $email; ?>"><br>
+<div  class="form">
+    <div class="w3-card-4 w3-animate-opacity" style='width:32%;background-color:white' id="centrar">
+    <h1 class="w3-btn w3-white w3-border w3-border-grey w3-round-large" style="text-align:center"><b>Formulario de resgistro</b></h1>
+            <p class="w3-animate-zoom" style="text-align:center;font-style:italic"><b>Por favor rellene este formulario para registrarse en nuestra pagina web.</b></p>
+                <!-- Formulario-->
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                        <!-- Nombre-->
+                        
+                        <label class="w3-animate-zoom"><b>Nombre</b></label>
+                                <input type="text" required name="nombre"  class="w3-input" value="<?php echo $nombre; ?>" 
+                                    title="El nombre no puede contener números"
+                                    minlength="1">
+                        <label class="w3-animate-zoom"><b>Apellidos</b></label>
+                                <input type="text" required name="apellido"  class="w3-input" value="<?php echo $apellido; ?>" 
+                                    title="Los apellido no puede contener números"
+                                    minlength="1"><br>
+                        <!-- Email -->
+                        <label class="w3-animate-zoom"><b>E-Mail</b></label><br>
+                                <input type="email" required name="email"  class="w3-input" value="<?php echo $email; ?>"><br>
 
-                        <!-- Password -->
-                    <label><b>Password</b></label><br>
-                            <input type="password" required name="password"  class="w3-input" value="<?php //echo $password; ?>"
-                            minlength="5" ><br>
+                            <!-- Password -->
+                        <label class="w3-animate-zoom"><b>Password</b></label><br>
+                                <input type="password" required name="password"  class="w3-input" value="<?php //echo $password; ?>"
+                                minlength="5" ><br>
 
-                        <!-- Administrador -->
-                    <label><b>Administrador</b></label><br>
-                            <input type="radio" name="admin" class="w3-radio" value="si" <?php echo (strstr($admin, 'si')) ? 'checked' : ''; ?>>si</input>
-                            <input type="radio" name="admin" class="w3-radio" value="no" <?php echo (strstr($admin, 'no')) ? 'checked' : ''; ?>>no</input><br>
-                        <!-- Lenguaje-->
-                    <label><b>Telefono</b></label><br>
-                            <input type="tel" required name="telefono"  class="w3-input" value="<?php echo $telefono; ?>"><br>
-                        <!-- Fecha-->
-                    <label><b>Fecha de Alta</b></label><br>
-                            <input type="date" required name="fecha" value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));?>"></input><br>
-                         <!-- Foto-->
-                    <label><b>Fotografía</b></label><br>
-                        <!-- Solo acepto imagenes jpg -->
-                            <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br>    
-                        <!-- Botones --> 
-                        <p> 
-                            <input type="submit" name="Enviar" value="Enviar" class="w3-btn w3-blue"> 
-                            <input type="reset" name="Limpiar" value="Limpiar" class="w3-btn w3-red" >
-                        </p>
-                
+                            <!-- Administrador -->
+                        <label class="w3-animate-zoom"><b>Administrador</b></label><br>
+                                <input type="radio" name="admin" checked class="w3-radio" value="no" <?php echo (strstr($admin, 'no')) ? 'checked' : ''; ?>>no</input><br><br>
+                            <!-- Lenguaje-->
+                        <label class="w3-animate-zoom"><b>Telefono</b></label><br>
+                                <input type="tel" required name="telefono"  class="w3-input" value="<?php echo $telefono; ?>"><br>
+                            <!-- Fecha-->
+                        <label class="w3-animate-zoom"><b>Fecha de Alta</b></label><br>
+                                <input type="date" required name="fecha" value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));?>"></input><br>
+                            <!-- Foto-->
+                        <label class="w3-animate-zoom"><b>Fotografía</b></label><br>
+                            <!-- Solo acepto imagenes jpg -->
+                                <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br>    
+                            <!-- Botones --> 
+                            <p> 
+                                <input type="submit" name="Enviar" value="Enviar" class="w3-btn w3-white w3-border w3-border-green w3-round-large"> 
+                                <input type="reset" name="Limpiar" value="Limpiar" class="w3-btn w3-white w3-border w3-border-green w3-round-large" >
+                            </p>
+                    
 
-        </form>
-
+            </form>
+    </div>
+</div>
 <?php require_once VIEW_PATH."footer.php"; ?>

@@ -11,10 +11,10 @@ p.imp{
     
 </style> 
 
-<div class="w3-sidebar w3-blue-grey w3-bar-block" style="width:19%">
-  <h3 class="w3-bar-item">Gestion de usuarios y productos</h3><br>
-  Añadir Producto <a href="/games/admin/usuario/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button>  </a> </a><br><br>
-  <a href="/games/admin/producto/gestion.php" ><button class="w3-btn w3-round-xxlarge w3-black"> Ir a lista de productos</button> </a><br><br><br>
+<div class="w3-sidebar  w3-bar-block" style="width:13%;margin-top:70px;">
+<h3 class="w3-bar-item">Gestion de usuarios y productos</h3><br>
+<p class="imp"> <a href="/games/admin/usuario/Vistas/create.php" class="w3-btn w3-white w3-border w3-border-green w3-round-large w3-circle " > Añadir Producto </a> </a></p><br>
+<p class="imp"> <a href="/games/admin/producto/gestion.php" ><button class="w3-btn w3-white w3-border w3-border-grey w3-round-large w3-circle "> Ir a lista de productos</button> </a></p><br><br>
 
   <h3>Descargar en: </h3><br><br>
         <p class="imp">

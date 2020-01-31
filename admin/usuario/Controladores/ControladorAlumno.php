@@ -48,7 +48,7 @@ class ControladorAlumno {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta pero esta vez paremtrizada
-        $consulta = "SELECT * FROM usuario WHERE nombre LIKE :nombre OR apellido LIKE :apellido";
+        $consulta = "SELECT * FROM usuarios WHERE nombre LIKE :nombre OR apellido LIKE :apellido";
         $parametros = array(':nombre' => "%".$nombre."%", ':apellido' => "%".$apellido."%");
         // Obtenemos las filas directamente como objetos con las columnas de la tabla
         $res = $bd->consultarBD($consulta,$parametros);
@@ -71,7 +71,7 @@ class ControladorAlumno {
         //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "INSERT INTO usuario ( nombre,apellido, email, password, 
+        $consulta = "INSERT INTO usuarios ( nombre,apellido, email, password, 
             admin, telefono, fecha, imagen) VALUES ( :nombre, :apellido, :email, :password, :admin, 
             :telefono, :fecha, :imagen)";
         
@@ -99,7 +99,7 @@ class ControladorAlumno {
     public function buscarAlumno($id){ 
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "SELECT * FROM usuario WHERE id = :id";
+        $consulta = "SELECT * FROM usuarios WHERE id = :id";
         $parametros = array(':id' => $id);
         $filas = $bd->consultarBD($consulta, $parametros);
         $res = $bd->consultarBD($consulta,$parametros);
@@ -122,7 +122,7 @@ class ControladorAlumno {
     public function buscarDuplicado($email){ 
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "SELECT * FROM usuario  WHERE email = :email";
+        $consulta = "SELECT * FROM usuarios  WHERE email = :email";
         $parametros = array(':email' => $email);
         $filas = $bd->consultarBD($consulta, $parametros);
         $res = $bd->consultarBD($consulta,$parametros);
@@ -142,7 +142,7 @@ class ControladorAlumno {
     public function buscarDuplicadoTel($telefono){ 
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "SELECT * FROM usuario  WHERE telefono = :telefono";
+        $consulta = "SELECT * FROM usuarios  WHERE telefono = :telefono";
         $parametros = array(':telefono' => $telefono);
         $filas = $bd->consultarBD($consulta, $parametros);
         $res = $bd->consultarBD($consulta,$parametros);
@@ -159,6 +159,25 @@ class ControladorAlumno {
         }    
     }
 
+    public function buscarID($email){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT id FROM usuarios  WHERE email = :email";
+        $parametros = array(':email' => $email);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    }
 
     
     public function borrarAlumno($id){ 
@@ -166,7 +185,7 @@ class ControladorAlumno {
         // Borro el alumno de la
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "DELETE FROM usuario WHERE id = :id";
+        $consulta = "DELETE FROM usuarios WHERE id = :id";
         $parametros = array(':id' => $id);
         $estado = $bd->actualizarBD($consulta,$parametros);
         $bd->cerrarBD();
@@ -189,7 +208,7 @@ class ControladorAlumno {
        // $alumno = new Alumno($id,$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "UPDATE usuario SET  nombre=:nombre, apellido=:apellido, email=:email, password=:password, admin=:admin, 
+        $consulta = "UPDATE usuarios SET  nombre=:nombre, apellido=:apellido, email=:email, password=:password, admin=:admin, 
             telefono=:telefono, fecha=:fecha, imagen=:imagen 
             WHERE id=:id";
         $parametros= array(':id' => $id,  ':nombre'=>$nombre, ':apellido'=>$apellido, ':email'=>$email,':password'=>$password,

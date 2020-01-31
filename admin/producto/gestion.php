@@ -1,4 +1,6 @@
-<?php require_once "Paths.php";?>
+<?php 
+require_once "Paths.php";
+?>
 <?php require_once VIEW_PATH."header.php"; ?>
 <br>
 <style>
@@ -11,11 +13,11 @@ p.imp{
     
 </style> 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<div class="w3-sidebar w3-blue-grey w3-bar-block" style="width:19%">
+<div class="w3-sidebar  w3-bar-block" style="width:13%">
   <h3 class="w3-bar-item">Gestion de usuarios y productos</h3><br>
-  Añadir Usuario <a href="/games/admin/usuario/Vistas/create.php" ><button class="w3-button w3-circle w3-black">+</button>  </a><br><br>
+  <p class="imp"><a href="/games/admin/usuario/Vistas/create.php" class="w3-btn w3-white w3-border w3-border-green w3-round-large w3-circle ">Añadir Usuario </a></p><br>
   
-  <a href="/games/admin/usuario/gestion.php" ><button class="w3-btn w3-round-xxlarge w3-black"> Ir a lista de Usuarios</button> </a><br><br><br>
+   <p class="imp"><a href="/games/admin/usuario/gestion.php" ><button class="w3-btn w3-white w3-border w3-border-grey w3-round-large"> Ir a lista de Usuarios</button> </a></p><br><br>
 
   <h3>Descargar en: </h3><br><br>
         <p class="imp">

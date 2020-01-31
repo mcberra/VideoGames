@@ -11,27 +11,29 @@
  *
  * @author link
  */
-class producto {
+class usuario {
     //put your code here
     private $id;
     private $nombre;
-    private $tipo;
-    private $distribuidor;
-    private $precio;
-    private $descuento;
-    private $stock;
+    private $apellido;
+    private $email;
+    private $password;
+    private $admin;
+    private $telefono;
+    private $fecha;
     private $imagen;
 
     
     // Constructor
-    public function __construct($id,  $nombre, $tipo,  $distribuidor, $precio, $descuento,  $stock, $imagen) {
+    public function __construct($id,  $nombre, $apellido, $email, $password, $admin, $telefono,  $fecha, $imagen) {
         $this->id = $id;
         $this->nombre = $nombre;
-        $this->tipo = $tipo;
-        $this->distribuidor = $distribuidor;
-        $this->precio = $precio;
-        $this->descuento = $descuento;
-        $this->stock = $stock;
+        $this->apellido = $apellido;
+        $this->email = $email;
+        $this->password = $password;
+        $this->admin = $admin;
+        $this->telefono = $telefono;
+        $this->fecha = $fecha;
         $this->imagen = $imagen;
     }
     
@@ -45,32 +47,34 @@ class producto {
         return $this->nombre;
     }
 
-    function getTipo() {
-        return $this->tipo;
+    function getApellido() {
+        return $this->apellido;
     }
     
-    function getDistribuidor() {
-        return $this->distribuidor;
+    function getEmail() {
+        return $this->email;
     }
 
-    function getPrecio() {
-        return $this->precio;
+    function getPassword() {
+        return $this->password;
     }
 
-    function getDescuento() {
-        return $this->descuento;
+    function getAdmin() {
+        return $this->admin;
     }
 
-    function getStock() {
-        return $this->stock;
+    function getTelefono() {
+        return $this->telefono;
     }
 
+
+    function getFecha() {
+        return $this->fecha;
+    }
 
     function getImagen() {
         return $this->imagen;
     }
-
-    //***********************sets************************* */
 
     function setId($id) {
         $this->id = $id;
@@ -81,27 +85,31 @@ class producto {
         $this->nombre = $nombre;
     }
 
-    function setTipo($tipo) {
-        $this->tipo = $tipo;
+    function setApellido($apellido) {
+        $this->apellido = $apellido;
     }
 
-    function setDistribuidor($distribuidor) {
-        $this->distribuidor = $distribuidor;
+    function setEmail($email) {
+        $this->email = $email;
     }
     
-    function setPrecio($precio) {
+    function setPassword($password) {
         //$this->password = md5($password);
-        $this->precio = ($precio);
+        $this->password = md5($password);
     } 
 
-    function setDescuento($descuento) {
-        $this->descuento= $descuento;
+    function setAdmin($admin) {
+        $this->admin= $admin;
     } 
 
-    function setStock($stock) {
-        $this->stock= $stock;
+    function setTelefono($telefono) {
+        $this->telefono= $telefono;
     } 
 
+
+    function setFecha($fecha) {
+        $this->fecha= $fecha;
+    } 
 
     function setImagen($imagen) {
         $this->imagen= $imagen;

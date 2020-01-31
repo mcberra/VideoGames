@@ -8,34 +8,13 @@
 
         error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-$admins=[];
-$bd = ControladorBD::getControlador();
-$bd->abrirBD();
-$consulta = "SELECT email,password FROM usuario WHERE admin = 'si'";
-$filas = $bd->consultarBD($consulta);
-
-    foreach ($filas as $a) {
-        $mail = array_shift($a);// se queda con el primer elemento del array OJO sin su clave solo el elemento
-        //array_pop($a); //saca un elemento de un array
-        array_push($admins, $mail);  //introducimos los emails a un array 
-    }
-
-$bd->cerrarBD();
-
-
-
- session_start();
-        if(!isset($_SESSION['USUARIO']['email'])){
-            //echo "entro a lista admin";
-            header("location: /games/admin/usuario/Vistas/Login.php");
-      exit();
-        }    
-
-       if(isset($_SESSION['USUARIO']['email']) && !in_array($_SESSION['USUARIO']['email'],$admins)){
-              //echo "entro a lista admin";
-              header("location: /games/admin/usuario/Vistas/error_idi.php");
-                exit();
-       } 
+        session_start();
+        if (!isset($_SESSION['USUARIO']['email'])) {
+          header("location: /games/admin/producto/Vistas/Login.php");
+        }
+        if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
+          header("location: /games/admin/producto/Vistas/Login.php");
+        } 
 
        /**************************seguro************************************************************** */
         

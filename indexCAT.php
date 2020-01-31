@@ -13,4 +13,4 @@ p.imp{
 
 
 
-<?php require_once VIEW_PATH."lista.php"; ?>
+<?php require_once VIEW_PATH."lista_cat.php"; ?>

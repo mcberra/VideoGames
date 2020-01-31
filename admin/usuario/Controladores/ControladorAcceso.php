@@ -42,54 +42,56 @@ class ControladorAcceso {
     
     public function procesarIdentificacion($email, $password){
 
-            //borro la sesion, por gusto, no se debería hacer pues nos cargamos todas
-           // $this->salierSesion();
+        //borro la sesion, por gusto, no se debería hacer pues nos cargamos todas
+       // $this->salierSesion();
 
-           $password= hash('sha256',$password);
-           //admin=:admin and ':admin'=>'si',
-            // Conectamos a la base de datos
-            $bd = ControladorBD::getControlador();
-            $bd->abrirBD();
-            // creamos la consulta pero esta vez paremtrizada
-            $consulta = "SELECT email, password FROM sesion WHERE  email=:email and password=:password";
-            $parametros = array(':email' => $email, ':password' => $password);
-            // Obtenemos las filas directamente como objetos con las columnas de la tabla
-            $res = $bd->consultarBD($consulta,$parametros);
-            $filas=$res->fetchAll(PDO::FETCH_OBJ);
-            //$log=1;
-            //var_dump($filas);
-            if (count($filas) > 0) { //con count($filas) > 0 me da error al usar otra tabla.
-                 // abrimos las sesiones
-                 //session_start();
-                 // Almacenamos el usuario en la sesion.
-                 $_SESSION['USUARIO']['email']=$email;
-                 //echo $_SESSION['USUARIO']['email'];
-                 header("location: /games/admin/usuario/gestion.php"); 
-                 exit();              
-            } else {
-                echo "<div class='wrapper'>";
-                    echo "<div class='container-fluid'>";
-                        echo "<div class='row'>";
-                            echo "<div class='col-md-12'>";
-                                echo "<div class='page-header'>";
-                                     echo "<h1>Usuario/a incorrecto</h1>";
-                                 echo "</div>";
-                                echo "<div class='alert alert-warning fade in'>";
-                                    echo "<p>Lo siento, el emial o password es incorrecto. Por favor <a href='/games/admin/usuario/Vistas/login.php' class='alert-link'>regresa</a> e inténtelo de nuevo.</p>";
-                                    echo$_SESSION['USUARIO']['email'];
-                                    //echo $email;
-                                    //echo $password;
-                       
-                                echo "</div>";
+       $password= hash('sha256',$password);
+       //admin=:admin and ':admin'=>'si',
+        // Conectamos a la base de datos
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM usuarios WHERE  email=:email and password=:password";
+        $parametros = array(':email' => $email, ':password' => $password);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) { 
+            $lista=[];
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                $lista = array($a->email,$a->admin,$a->id,$a->nombre,$a->apellido,$a->imagen, $a->fecha,$a->telefono, $a->password);
+            }
+            
+        $bd->cerrarBD();
+             session_start();
+             $_SESSION['USUARIO']['email']=$lista;
+             //echo $_SESSION['USUARIO']['email'];
+             header("location: /games/indexCAT.php"); 
+             exit();              
+        } else {
+            echo "<div class='wrapper'>";
+                echo "<div class='container-fluid'>";
+                    echo "<div class='row'>";
+                        echo "<div class='col-md-12'>";
+                            echo "<div class='page-header'>";
+                                 echo "<h1>Usuario/a incorrecto</h1>";
+                             echo "</div>";
+                            echo "<div class='alert alert-warning fade in'>";
+                                echo "<p>Lo siento, el emial o password es incorrecto. Por favor <a href='/games/Vistas/login.php' class='alert-link'>regresa</a> e inténtelo de nuevo.</p>";
+                                echo$_SESSION['USUARIO']['email'];
+                                //echo $email;
+                                //echo $password;
+                   
                             echo "</div>";
                         echo "</div>";
                     echo "</div>";
                 echo "</div>";
-                //<!-- Pie de la página web -->
-                require_once VIEW_PATH."footer.php";
-                exit();
-            }
-    }
+            echo "</div>";
+            //<!-- Pie de la página web -->
+            require_once VIEW_PATH."footer.php";
+            exit();
+        }
+}
     
     
 

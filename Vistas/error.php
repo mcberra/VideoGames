@@ -3,7 +3,7 @@
 <div class="w3-panel w3-pale-red w3-border w3-display-middle">
     <h1>Error en este proceso.</h1>
     <p>Lo siento, estás intentando realizar una operación no válida o ha habido un error de procesamiento.
-     Por favor <a href="/games/admin/usuario/Vistas/error.php">regresa</a> e inténtelo de nuevo.
+     Por favor <a href="/games/indexCAT.php">regresa</a> e inténtelo de nuevo.
      </p>
 </div>
 

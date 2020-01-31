@@ -1,4 +1,7 @@
 <?php 
+      require_once CONTROLLER_PATH."ControladorBD.php";
+      require_once CONTROLLER_PATH."ControladorAlumno.php";
+
 // Coockie contador
 //Importante: las cookies se envían al cliente mediante encabezados HTTP. 
 //Como cualquier otro encabezado, las cookies se deben enviar antes que cualquier salida que genere la página 
@@ -40,43 +43,58 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="./4288favicon.ico">
     <title>Game Over</title>
-    <style>
-
-  </style>
 </head>
+
+<style>
+  .black{
+    background-color:black;
+    border-bottom:solid 5px #152F4F;
+    color:white;
+  }
+</style>
 <body>
-    
+    <div class="black">
+        <img src="\games\admin\producto\img\14.png" alt="titulo" class=""><br>
+        <p>        Oficial web page of Game Over store.</p>
+    </div>
 
- <div class="w3-container w3-black">
- <img src="\games\admin\producto\img\14.png" alt="titulo" class=""><br>
- <p>        Oficial web page of Game Over store.</p>
-</div>
-<!--  -->
+        <div class="w3-bar w3-black" >
+            <a href="/games/indexCAT.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
+            <a href="/games/Vistas/registro.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Registro de usuarios" style="text-decoration:none"><span class="glyphicon glyphicon-check"></span> Sing-in </i></a> 
+            <a href="/games/Vistas/carrito.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Carrito de compras" style="text-decoration:none;float:right"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping-cart </i></a>
+            <?php
 
-<div class="w3-bar w3-blue-grey">
-      <a href="/games/indexCAT.php" class="w3-bar-item  w3-button " title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
-      
-    
-      
-      <?php
+            session_start();
 
-          error_reporting(E_ERROR | E_WARNING | E_PARSE);
-              // Abrimos las sesiones para leerla
-              session_start();
-              if(isset($_SESSION['USUARIO']['email'])){
-                // Menu de administrador
-                echo '<a href="#" class="w3-bar-item w3-button w3-black">Logged-in as: '.$_SESSION['USUARIO']['email'].'</a>';
-                echo '<a href="/games/admin/administracion.php" class="w3-bar-item  w3-button " title="Gestion de usuarios y productos"><span class="glyphicon glyphicon-cog"></span> </i></a>';
-                echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button" title="Log-Out"><i class=" w3-large fa fa-sign-out"> Log-out</i></a>';
+            error_reporting(E_ERROR | E_WARNING | E_PARSE);
+                      
+            if(isset($_SESSION['USUARIO']['email'])){
                 
+                echo '<div class="w3-dropdown-hover w3-mobile">';
+                    echo '<button class="w3-button w3-black w3-hover-none w3-text-white w3-hover-text-white"><i class=" w3-large fa fa-user"></i> '.$_SESSION['USUARIO']['email'][0].' <i class="fa fa-caret-down"></i></button>';         
+                    echo '<div class="w3-dropdown-content w3-bar-block w3-dark-grey">';
+                        echo '<a href="/games/Vistas/perfil_config.php?id=' . encode($_SESSION['USUARIO']['email'][2]) . '" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none"><span class="glyphicon glyphicon-edit"></span> Configuracion de perfil</a>';
+                        echo '</div>';
+                    echo '</div>';
+              if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {
+                echo '<div class="w3-dropdown-hover w3-mobile">';
+                echo '<button class="w3-button w3-black w3-hover-none w3-text-white w3-hover-text-white"> <span class="glyphicon glyphicon-cog"></span> Administration <i class="fa fa-caret-down"></i></button>';
+                //echo '<a href="/games/admin/administracion.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" title="Gestion de usuarios y productos" style="text-decoration:none"><span class="glyphicon glyphicon-cog"></span> Administracion</a>';         
+                    echo '<div class="w3-dropdown-content w3-bar-block w3-dark-grey">';
+                        echo '<a href="/games/admin/usuario/Vistas/create.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none" ><span class="glyphicon glyphicon-plus-sign"></span>  Añadir Usuario </a>';
+                        echo '<a href="/games/admin/producto/Vistas/create.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none" > <span class="glyphicon glyphicon-plus-sign"></span> Añadir Producto  </a>';
+                        echo '<a href="/games/admin/usuario/gestion.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none" ><span class="glyphicon glyphicon-list-alt"></span>  Listado de Usuarios </a>';
+                        echo '<a href="/games/admin/producto/gestion.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none" ><span class="glyphicon glyphicon-list-alt"></span>  Listado de Productos</a>';
+                    echo '</div>';
+                echo '</div>';
+              }
+                echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Log-Out"><i class=" w3-large fa fa-sign-out"> Log-out</i></a>';           
             } else{
-                // Menú normal
-                echo '<a href="#" class="w3-bar-item w3-button w3-black">Not logged</a>';
-                echo '<a href="/games/admin/administracion.php" class="w3-bar-item  w3-button " title="Gestion de usuarios y productos"><span class="glyphicon glyphicon-cog"></span> </i></a>';
-                echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button w3-button" title="Log-In"><i class="w3-large fa fa-sign-in"> Log-in</i></a>';
-          }
-          
-      ?>
-</div>
-
+                    // Menú sin log
+                    echo '<a href="#" style="text-decoration:none" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white">Not logged</a>';
+                    echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Log-In"><i class="w3-large fa fa-sign-in"> Log-in</i></a>';
+                }
+                          
+              ?>
+        </div>
 

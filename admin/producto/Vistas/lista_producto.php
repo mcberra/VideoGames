@@ -7,38 +7,16 @@
     require_once MODEL_PATH."alumno.php";
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-$admins=[];
-$bd = ControladorBD::getControlador();
-$bd->abrirBD();
-$consulta = "SELECT email,password FROM usuario WHERE admin = 'si'";
-$filas = $bd->consultarBD($consulta);
-
-    foreach ($filas as $a) {
-        $mail = array_shift($a);// se queda con el primer elemento del array OJO sin su clave solo el elemento
-        //array_pop($a); //saca un elemento de un array
-        array_push($admins, $mail);  //introducimos los emails a un array 
-    }
-
-$bd->cerrarBD();
-
-
-
- session_start();
-        if(!isset($_SESSION['USUARIO']['email'])){
-            //echo "entro a lista admin";
-            header("location: /games/admin/producto/Vistas/Login.php");
-      exit();
-        }    
-
-       if(isset($_SESSION['USUARIO']['email']) && !in_array($_SESSION['USUARIO']['email'],$admins)){
-              //echo "entro a lista admin";
-              header("location: /games/admin/producto/Vistas/error_idi.php");
-                exit();
-       }
+session_start();
+if (!isset($_SESSION['USUARIO']['email'])) {
+  header("location: /games/admin/producto/Vistas/Login.php");
+}
+if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
+  header("location: /games/admin/producto/Vistas/Login.php");
+}
 ?>
 <div style="margin-left:19%">
-<h1>Listado de productos registrados</h1><br><br>
-<h3 class="pull-left">Buscar fichas de Productos</h3>
+<h1 style="margin-top:30px" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Listado de productos</h1><br><br>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -53,12 +31,7 @@ $bd->cerrarBD();
                     
 <button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
 
-
-               
-            
-            
-
-            <a href="/games/admin/producto/Vistas/create.php" class="w3-btn w3-green">  Añadir Producto</a>
+<a href="/games/admin/producto/Vistas/create.php" class="w3-btn w3-green">  Añadir Producto</a>
 </form>
  <style>
 #pag{
@@ -78,8 +51,7 @@ $bd->cerrarBD();
    h1{
        text-align:center;
        font-size:bolder;
-   }
-    
+   }  
 </style> 
 <?php
     require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
@@ -88,14 +60,9 @@ $bd->cerrarBD();
     require_once CONTROLLER_PATH . "Paginador.php";
 
     if (!isset($_POST["producto"])) {
-        $nombre = "";
-        
-        
+        $nombre = ""; 
     } else {
-        $nombre = filtrado($_POST["producto"]);
-        
-
-        
+        $nombre = filtrado($_POST["producto"]);  
     }
    
     $controlador = ControladorAlumno::getControlador();
@@ -114,6 +81,7 @@ $bd->cerrarBD();
               // Si hay filas (no nulo), pues mostramos la tabla
             //if (!is_null($lista) && count($lista) > 0) {
                 if(count( $resultados->datos)>0){
+                    echo "<div class='all'>";
                     echo "<table class='w3-table-all w3-card-4' >";
                     echo "<thead>";
                     echo "<tr>";
@@ -148,9 +116,11 @@ $bd->cerrarBD();
                     }
                     echo "</tbody>";
                     echo "</table>";
-                    echo "<ul class=''>"; //  <ul class="pagination">
+                    echo "<div class=''>"; //  <ul class="pagination">
                     echo $paginador->crearLinks($enlaces);
                     echo "</ul>";
+                    echo "</div>";
+                   
                 } else {
                     // Si no hay nada seleccionado
                     echo "<p class='lead'><em>No se ha encontrado datos de los items.</em></p>";
@@ -159,17 +129,6 @@ $bd->cerrarBD();
                 
 ?>
 
-<?php
-        // Leemos la cookie
-        if(isset($_COOKIE['CONTADOR'])){
-            echo "<b>".$contador."</b>";
-            echo "<b>".$acceso."</b>";
-            echo "<br>";
-            echo "<b>Logged in as: ".$_SESSION['USUARIO']['email']."</b>";
-        }
-        else
-            echo "Es tu primera visita hoy";
-           
-    ?>
+<?php require_once VIEW_PATH."footer.php"; ?>
     </div>
     </div>

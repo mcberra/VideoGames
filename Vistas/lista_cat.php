@@ -1,8 +1,8 @@
 
   <?php
 
-require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
-require_once MODEL_PATH."alumno.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
+require_once MODEL_PATH."producto.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
 require_once UTILITY_PATH."funciones.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
@@ -57,7 +57,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 // }
 
 
-require_once VIEW_PATH."lista_admin.php";
+require_once VIEW_PATH."catalogo.php";
 
 
   ?>

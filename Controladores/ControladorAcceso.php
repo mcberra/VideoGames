@@ -7,7 +7,7 @@
  */
 
 require_once CONTROLLER_PATH."ControladorBD.php";
-
+require_once MODEL_PATH."alumno.php";
 class ControladorAcceso {
     // Variable instancia para Singleton
     static private $instancia = null;
@@ -50,19 +50,21 @@ class ControladorAcceso {
             // Conectamos a la base de datos
             $bd = ControladorBD::getControlador();
             $bd->abrirBD();
-            // creamos la consulta pero esta vez paremtrizada
-            $consulta = "SELECT email, password FROM sesion WHERE  email=:email and password=:password";
+            $consulta = "SELECT * FROM usuarios WHERE  email=:email and password=:password";
             $parametros = array(':email' => $email, ':password' => $password);
-            // Obtenemos las filas directamente como objetos con las columnas de la tabla
             $res = $bd->consultarBD($consulta,$parametros);
             $filas=$res->fetchAll(PDO::FETCH_OBJ);
-            //$log=1;
-            //var_dump($filas);
-            if (count($filas) > 0) { //con count($filas) > 0 me da error al usar otra tabla.
-                 // abrimos las sesiones
-                 //session_start();
-                 // Almacenamos el usuario en la sesion.
-                 $_SESSION['USUARIO']['email']=$email;
+
+            if (count($filas) > 0) { 
+                $lista=[];
+                foreach ($filas as $a) {
+                    $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                    $lista = array($a->email,$a->admin,$a->id,$a->nombre,$a->apellido,$a->imagen, $a->fecha,$a->telefono, $a->password);
+                }
+                
+            $bd->cerrarBD();
+                 session_start();
+                 $_SESSION['USUARIO']['email']=$lista;
                  //echo $_SESSION['USUARIO']['email'];
                  header("location: /games/indexCAT.php"); 
                  exit();              
