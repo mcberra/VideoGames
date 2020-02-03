@@ -1,4 +1,5 @@
 <?php
+
 //en este apartado hacemos que los indices del array siempre se incrementen en 1, de tal forma que, al borrar y volver introducir
 //un valores en el array los indices no coincidan con los que puedan haber quedado.
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
@@ -104,8 +105,9 @@ echo "<br>";
 //print_r($items);
 echo "<br>";
 //print_r($_SESSION['cart']);
-header("Location: /games/indexCAT.php");
+header("Location: /games/Vistas/carrito.php");
 
 ?>
 
                       
+

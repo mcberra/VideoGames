@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/games/admin/producto/Paths.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/games/Paths.php";
 require_once CONTROLLER_PATH . "ControladorDescarga.php";
 $opcion = $_GET["opcion"];
 $fichero = ControladorDescarga::getControlador();

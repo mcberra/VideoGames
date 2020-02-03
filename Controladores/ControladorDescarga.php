@@ -120,42 +120,7 @@ class ControladorDescarga
 
     public function descargarPDF(){
         $sal ='<h2 class="pull-left">Listado de usuarios</h2>';
-        $lista = $controlador = ControladorAlumno::getControlador();
-        $lista = $controlador->listarAlumnos("", "");
-        if (!is_null($lista) && count($lista) > 0) {
-            $sal.="<table border='1'>";
-            $sal.="<thead>";
-            $sal.="<tr>";
-            $sal.="<th>Nombre</th>";
-            $sal.="<th>Tipo</th>";
-            $sal.="<th>Distribuidor</th>";
-            $sal.="<th>Precio</th>";
-            $sal.="<th>Descuento</th>";
-            $sal.="<th>Stock</th>";
-            $sal.="<th>Imagen</th>";
-            $sal.="</tr>";
-            $sal.="</thead>";
-            $sal.="<tbody>";
-            // Recorremos los registros encontrados
-            foreach ($lista as $producto) {
-                // Pintamos cada fila
-                $sal.="<tr>";
-                $sal.="<td>" . $producto->getNombre() . "</td>";
-                $sal.="<td>" . $producto->getTipo() . "</td>";
-                $sal.="<td>" . $producto->getDistribuidor() . "</td>";
-                $sal.="<td>" . $producto->getPrecio() . "</td>";
-                $sal.="<td>" . $producto->getDescuento() . "</td>";
-                $sal.="<td>" . $producto->getStock() . "</td>";
-                // Para sacar una imagen hay que decirle el directprio real donde está
-                $sal.="<td><img src='".$_SERVER['DOCUMENT_ROOT'] . "/games/admin/producto/imagenes/".$producto->getImagen()."'  style='max-width: 12mm; max-height: 12mm'></td>";
-                $sal.="</tr>";
-            }
-            $sal.="</tbody>";
-            $sal.="</table>";
-        } else {
-            // Si no hay nada seleccionado
-            $sal.="<p class='lead'><em>No se ha encontrado datos de items.</em></p>";
-        }
+        
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
         $pdf=new HTML2PDF('L','A4','es','true','UTF-8');
         $pdf->writeHTML($sal);

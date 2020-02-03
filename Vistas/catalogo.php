@@ -1,6 +1,6 @@
 
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
+    require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
     require_once CONTROLLER_PATH."ControladorImagen.php";
     require_once CONTROLLER_PATH."ControladorBD.php";
     require_once MODEL_PATH."producto.php";
@@ -77,8 +77,8 @@ echo "<div class='all'>";
             $producto = new producto($a->id, $a->nombre, $a->tipo, $a->distribuidor, $a->precio, $a->descuento, $a->stock, $a->imagen);
             echo "<div class='w3-card-4 w3-margin' style='width:21% ' id='box2'>";
                 echo '<div class="w3-display-container w3-text-black">';
-                    echo "<a href='/games/Vistas/read.php?id=" . encode($producto->getId()) . "' ><img src='/games/admin/producto/imagenes/".$producto->getImagen()."' style='width:100%' class='w3-button'> <img></a>";
-                    echo  "<p style='text-align:center'><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Nombre del producto : " .$producto->getNombre() ."</button></p><br>";
+                    echo "<a href='/games/Vistas/ver_producto.php?id=" . encode($producto->getId()) . "' ><img src='/games/admin/producto/imagenes/".$producto->getImagen()."' style='width:100%' class='w3-button'> <img></a>";
+                    echo  "<p style='text-align:center'><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large'> " .$producto->getNombre() ."</button></p><br>";
                     
                     $descuento=$producto->getDescuento(); 
                     if ($descuento > 0) {
@@ -91,13 +91,13 @@ echo "<div class='all'>";
                 echo "</div>";
                 echo '<div class="w3-row">';
                     echo '<div class="w3-third w3-center">';
-                    echo "<p><a href='/games/Vistas/ver_producto.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'> Mas info.</a></p>";
+                    echo "<p><a href='/games/Vistas/ver_producto.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-black w3-border w3-border-black w3-round-large'> Mas info.</a></p>";
                     echo "</div>";
                     echo '<div class="w3-third w3-center">';
                     echo "<p><a href='/games/Vistas/add.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'><span class='glyphicon glyphicon-shopping-cart'></span> Añadir</a></p>";
                     echo "</div>";
                     echo '<div class="w3-third w3-center w3-margin-bottom">';
-                        echo "<p><a href='#' title='Comprar' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-blue w3-round-large'> Comprar</a></p>";
+                    echo "<p><a href='/games/Vistas/comprar.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'> Comprar</a></p>";
                     echo "</div>";
                 echo "</div>";
             echo "</div>";
@@ -109,18 +109,19 @@ echo "<ul >"; //  <ul class="pagination">
 echo $paginador->crearLinks($enlaces);
 echo "</ul>";
 echo "</div>";
-echo "<br>";
- //print_r($_SESSION['cart']); 
-// echo "<br>";
-// print_r($_SESSION['temp']);                 
+echo "<br>";echo "<br>";echo "<br>";echo "<br>";
+// print_r($_SESSION['cart']); 
+//  echo "<br>";
+//print_r($_SESSION['cart']);
+                
 ?>
 
 <?php
         // Leemos la cookie
         if(isset($_COOKIE['CONTADOR'])){
-            echo "<i class='w3-btn w3-white w3-border w3-border-grey w3-round-large'><b>".$contador."</b></i>";
+            echo "<i class='w3-btn w3-bottombar'><b>".$contador."</b></i>";
             echo "<br>";
-            echo "<i class='w3-btn w3-white w3-border w3-border-grey w3-round-large'><b>".$acceso."</b></i>";
+            echo "<i class='w3-btn w3-bottombar'><b>".$acceso."</b></i>";
             echo "<br>";   
         }
         else

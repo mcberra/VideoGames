@@ -188,7 +188,7 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div  class="form">
     <div class="w3-card-4" style='width:32%;background-color:white' id="centrar">
-    <h1 style="text-align:center" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'><b>Configuracion de perfil</b></h1><br><br>
+    <h1 style="text-align:center" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'><b>Configuracion de perfil</b></h1><br><br><br><br>
         <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
@@ -196,19 +196,19 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                         <!-- DNI-->
                         
                     <!-- Nombre-->
-                    <label><b>Nombre</b></label><br>
+                    <label class="w3-animate-zoom"><b>Nombre</b></label><br>
                     <input type="text" name="nombre" class="w3-input" value="<?php echo $nombre; ?>"><br><br>
 
                     <!-- APELLIDO-->
-                    <label><b>Apellido</b></label><br>
+                    <label class="w3-animate-zoom"><b>Apellido</b></label><br>
                     <input type="text" name="apellido" class="w3-input" value="<?php echo $apellido; ?>"><br><br>
                             
                     
                     </td>
                     <!-- Fotogrsfía -->
                     <td class="align-left">
-                        <label><b>Fotografía</b></label><br>
-                        <img src='<?php echo "/games/admin/usuario/imagenes/" . $usuario->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
+                        <label class="w3-animate-zoom"><b>Fotografía</b></label><br>
+                        <img src='<?php echo "/games/admin/usuario/imagenes/" . $usuario->getImagen() ?>' class='rounded w3-animate-zoom' class='img-thumbnail' width='48' height='auto'>
                     </td>
                 </tr>
             </table>
@@ -217,36 +217,45 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
 
                 <!-- Email -->
     
-                    <label><b>E-Mail</b></label><br>
+                    <label class="w3-animate-zoom"><b>E-Mail</b></label><br>
                     <input type="email" required name="email" class="w3-input" value="<?php echo $email; ?>"><br>
                     
 
-                    <label><b>Password</b></label><br>
+                    <label class="w3-animate-zoom"><b>Password</b></label><br>
                     <input type="password" required name="password"  class="w3-input" value="<?php echo ($password); ?>"
                         readonly><br>
                 
             
-            
-                        <label><b>Administrador</b></label><br>
-                    <input type="radio" name="admin" class="w3-radio" value="si" <?php echo (strstr($admin, 'si')) ? 'checked' : ''; ?>>si</input>
-                    <input type="radio" name="admin" class="w3-radio" value="no" <?php echo (strstr($admin, 'no')) ? 'checked' : ''; ?>>no</input><br>
+            <?php
+                if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {
+                    echo '<label class="w3-animate-zoom"><b>Administrador</b></label><br>';
+                    echo '<input type="radio" name="admin" class="w3-radio" value="si" '.   (strstr($admin, "si")).' ? "checked" : "">si</input>';
+                    echo '<input type="radio" name="admin" class="w3-radio" value="no" '. (strstr($admin, "no")) .' ? "checked" : "" >no</input><br>';
+                }else {
+                   echo '<label class="w3-animate-zoom"><b>Administrador</b></label><br>';
+                   echo '<input type="radio" name="admin" checked class="w3-radio" value="no" '.  (strstr($admin, "no")) ? "checked" : "" .'>no</input><br>';
+                   
+                   
+                }
+            ?>
+
                     
             
                 <!-- Matrícula -->
                 
-                <label><b>Telefono</b></label><br>
+                <label class="w3-animate-zoom"><b>Telefono</b></label><br>
                     <input type="tel" required name="telefono"  class="w3-input" value="<?php echo $telefono; ?>"><br>
                 
         
                 <!-- Fecha-->
     
-                <label><b>Fecha de Matriculación</b></label><br>
+                <label class="w3-animate-zoom"><b>Fecha de Matriculación</b></label><br>
                     <input type="date" disabled name="fecha" value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));?>"></input><br><br>
                 
             
                 <!-- Foto-->
                 
-                <label><b>Fotografía</b></label><br>
+                <label class="w3-animate-zoom"><b>Fotografía</b></label><br>
                 <!-- Solo acepto imagenes jpg -->
                 <input type="file" name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"> <br>
                 

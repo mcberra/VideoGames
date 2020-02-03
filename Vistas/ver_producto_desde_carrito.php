@@ -71,7 +71,7 @@
         </table>
                              
 
-            <a href="/games/indexCAT.php" class="w3-btn w3-block w3-black  w3-hover-blue" style="width:100%;text-decoration:none"> Volver</a>
+            <a href="/games/Vistas/carrito.php" class="w3-btn w3-block w3-black  w3-hover-blue" style="width:100%;text-decoration:none"> Volver</a>
 </div>
      
 <br><br><br>

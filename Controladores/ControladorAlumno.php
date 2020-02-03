@@ -13,6 +13,8 @@
  */
 
 require_once MODEL_PATH."producto.php";
+require_once MODEL_PATH."compra.php";
+require_once MODEL_PATH."alumno.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
 require_once UTILITY_PATH."funciones.php";
 
@@ -227,5 +229,101 @@ class ControladorAlumno {
             return null;
         }    
     }
+
+    public function almacenarDireccion($email_usuario,$direccion, $direccion2, $ciudad, $estado, $codigo_postal, $pais,$id_compra){
+        //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "INSERT INTO direccion ( email_usuario,direccion, direccion2, 
+            ciudad, estado, codigo_postal, pais,id_compra) VALUES ( :email_usuario, :direccion, :direccion2, :ciudad, :estado, 
+            :codigo_postal,  :pais ,  :id_compra)";
+        
+        $parametros= array( ':email_usuario'=>$email_usuario, ':direccion'=>$direccion, ':direccion2'=>$direccion2,':ciudad'=>$ciudad,
+                            ':estado'=>$estado, ':codigo_postal'=>$codigo_postal,':pais'=>$pais ,':id_compra'=>$id_compra);
+        $estado = $bd->actualizarBD($consulta,$parametros);
+        $bd->cerrarBD();
+        return $estado;
+    }
+
+    public function almacenarTarjeta($email_usuario, $id_compra, $numero_tarjeta, $total, $fecha){
+        //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "INSERT INTO ventas ( email_usuario,numero_tarjeta, id_compra, 
+            fecha, total) VALUES ( :email_usuario, :numero_tarjeta, :id_compra, :fecha, 
+            :total)";
+        
+        $parametros= array( ':email_usuario'=>$email_usuario, ':numero_tarjeta'=>$numero_tarjeta, ':id_compra'=>$id_compra,':fecha'=>$fecha,
+                             ':total'=>$total);
+        $estado = $bd->actualizarBD($consulta,$parametros);
+        $bd->cerrarBD();
+        return $estado;
+    }
+
+
+    public function buscarIdcompra($id_compra){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM direccion WHERE id_compra = :id_compra";
+        $parametros = array(':id_compra' => $id_compra);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $compra = new compra($a->email_usuario, $a->direccion, $a->direccion2, $a->ciudad, $a->estado, $a->codigo_postal, $a->pais, $a->id_compra);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $compra;
+        }else{
+            return null;
+        }    
+    }
+
+    // public function actualizarStock($stock, $nombre){
+    //     // $alumno = new Alumno($id,$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+    //      $bd = ControladorBD::getControlador();
+    //      $bd->abrirBD();
+    //      $consulta = "UPDATE producto SET  stock=:stock
+    //          WHERE nombre=:".$nombre;
+    //      $parametros= array(':stock' => $stock,':nombre' => $nombre);
+    //      $estado = $bd->actualizarBD($consulta,$parametros);
+    //      $bd->cerrarBD();
+    //      return $estado;
+    //  }
+
+
+
+     public function buscarStock($nombre){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM producto  WHERE nombre = :nombre";
+        $parametros = array(':nombre' => $nombre);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $producto = new producto($a->id, $a->nombre, $a->tipo, $a->distribuidor, $a->precio, $a->descuento, $a->stock,  $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $producto;
+        }else{
+            return null;
+        }    
+    }
+
+
+    public function actualizarStock( $stock,  $nombre){
+         $bd = ControladorBD::getControlador();
+         $bd->abrirBD();
+         $consulta = "UPDATE producto SET   stock=:stock WHERE nombre=:nombre ";
+         $parametros= array(  ':nombre'=>$nombre, ':stock'=>$stock );
+         $estado = $bd->actualizarBD($consulta,$parametros);
+         $bd->cerrarBD();
+         return $estado;
+     }
 
 }

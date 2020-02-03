@@ -5,9 +5,7 @@
     require_once CONTROLLER_PATH."ControladorBD.php";
     require_once MODEL_PATH."producto.php";
 
-    // if (!isset($_SESSION['cart'])) {
-    //     alerta("debe iniciar sesion para acceder al carrito.");
-    // }
+        
 ?>
 <?php require_once VIEW_PATH."header.php"; ?>
 <div style="margin-left:5%">
@@ -57,7 +55,8 @@ require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once UTILITY_PATH."funciones.php";
 require_once CONTROLLER_PATH . "Paginador.php";
-
+ 
+ 
 if (!isset($_POST["producto"])) {
     $nombre = "";  
 } else {
@@ -75,17 +74,18 @@ $parametros = array(':nombre' => "%".$nombre."%");
 $limite = 4; // Limite del paginador
 $paginador  = new Paginador($consulta, $parametros, $limite);
 $resultados = $paginador->getDatos($pagina);
-
+//print_r($_SESSION['USUARIO']['email'][0]);
 echo "<div class='all'>";
     echo "<div class='w3-margin-bottom'>";
     $_SESSION['total']=[];
+    $_SESSION["dir"]=[];
     if (!empty($_SESSION['cart'])) {
-    
+        $_SESSION["id_compra"]=date('Y-m-d\TH:i:s.u');//id de compra
             foreach($_SESSION['cart'] as $producto => $detalles)
                 {
                         echo "<div class='w3-card-4 w3-margin' style='width:22% ' id='box2'>";
                         echo '<div class="w3-display-container w3-text-black">';
-                            echo "<img src='/games/admin/producto/imagenes/".$detalles[2] ."' style='width:100%' class='w3-button'> <img>";
+                            echo "<a href='/games/Vistas/ver_producto_desde_carrito.php?id=" . encode($detalles[0]) . "' ><img src='/games/admin/producto/imagenes/".$detalles[2] ."' style='width:100%' class='w3-button'> <img></a>";
                             echo  "<p style='text-align:center'><a href='/games/Vistas/actualizar_carrito.php?resta=".encode($detalles[7])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-minus-sign'></span> </a><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Unidades [ " .$detalles[6] ." ]</button><a href='/games/Vistas/actualizar_carrito.php?suma=".encode($detalles[7])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-plus-sign'></span> </a></p><br>";
                             $descuento=$detalles[4];  
                             if ($descuento > 0) {
@@ -124,12 +124,12 @@ echo "<div class='all'>";
 echo "</div>";
  if (isset($_SESSION['USUARIO']['email'])) {
      if (isset($_SESSION['cart'])) {
-        echo '<p style="text-align:center"><button class="w3-btn  w3-xxxlarge w3-black w3-round-large w3-text-white " >Total : '.array_sum($_SESSION['total']).' €</button> <button class=" w3-btn  w3-xxxlarge w3-black w3-round-large w3-text-grey w3-hover-text-white"> Comprar </button></p>';
+        echo '<p style="text-align:center"><button class=" w3-btn  w3-xlarge w3-black w3-round-large w3-text-white w3-hover-text-white" >Total : '.array_sum($_SESSION['total']).' €</button> <a href="/games/Vistas/form_direccion.php?email='.encode($_SESSION['USUARIO']['email'][0]).'"  style="text-decoration:none;color:white" class=" w3-btn  w3-xlarge w3-black w3-round-large w3-text-grey w3-hover-text-white"> Comprar</a> <a href="/games/Vistas/vaciar_carrito.php"  style="text-decoration:none;color:white" class=" w3-btn  w3-xlarge w3-red w3-round-large w3-text-black w3-hover-text-white"> Vaciar carrito</a></p>';
      }
     
  }else{
      if (isset($_SESSION['cart'])) {
-        echo '<p style="text-align:center"><button class="w3-btn  w3-xxxlarge w3-black w3-round-large w3-text-white " >Total : '.array_sum($_SESSION['total']).' €</button> <button class=" w3-btn  w3-xxxlarge w3-black w3-round-large w3-text-grey w3-hover-text-white"> Comprar como invitado</button></p>';
+        echo '<p style="text-align:center"><button class="w3-btn  w3-xlarge w3-black w3-round-large w3-text-white " >Total : '.array_sum($_SESSION['total']).' €</button> <a href="/games/Vistas/form_direccion.php"  class=" w3-btn  w3-xlarge w3-black w3-round-large w3-text-grey w3-hover-text-white" style="text-decoration:none"> Comprar como invitado</a> <a href="/games/Vistas/vaciar_carrito.php"  style="text-decoration:none;color:white" class=" w3-btn  w3-xlarge w3-red w3-round-large w3-text-black w3-hover-text-white"> Vaciar carrito</a></p>';
      }
 
  }

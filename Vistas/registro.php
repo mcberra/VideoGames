@@ -203,7 +203,7 @@ if($intervalo->format('%R%a dias')>0){
 <div  class="form">
     <div class="w3-card-4 w3-animate-opacity" style='width:32%;background-color:white' id="centrar">
     <h1 class="w3-btn w3-white w3-border w3-border-grey w3-round-large" style="text-align:center"><b>Formulario de resgistro</b></h1>
-            <p class="w3-animate-zoom" style="text-align:center;font-style:italic"><b>Por favor rellene este formulario para registrarse en nuestra pagina web.</b></p>
+            <br><br><br>
                 <!-- Formulario-->
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                         <!-- Nombre-->

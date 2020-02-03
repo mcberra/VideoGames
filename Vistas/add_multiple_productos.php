@@ -23,10 +23,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         exit();
     } 
 }
-print_r($_SESSION['cart'][$producto->getNombre()][6]); 
-echo $producto->getNombre();
-echo "<br>";
-print_r($_SESSION['cart']);
+
 $uds = 1;
 
 
@@ -42,46 +39,42 @@ if (!isset($_SESSION['cart'])) {
 if(!isset($_SESSION['indice'])){
     $_SESSION['indice']=0;
 }
-// if(isset($_SESSION['indice'])){
-//     $_SESSION['indice']=$_SESSION['indice']+1;
-// }
+if(isset($_SESSION['indice'])){
+    $_SESSION['indice']=$_SESSION['indice']+1;
+}
 
 
 if(!isset($_SESSION['cart'])){
     $_SESSION['ind'] = 0;
-    $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
-    $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
-    $_SESSION['temp'][$producto->getNombre()]['2']=$producto->getImagen();
-    $_SESSION['temp'][$producto->getNombre()]['3']=$producto->getPrecio();
-    $_SESSION['temp'][$producto->getNombre()]['4']=$producto->getDescuento();
-    $_SESSION['temp'][$producto->getNombre()]['5']=$producto->getStock();
-    $_SESSION['temp'][$producto->getNombre()]['6']=$uds;
-    //$_SESSION['indice']=$indice;
-    $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
+    $_SESSION['temp'][0]['0']=$producto->getId();
+    $_SESSION['temp'][0]['1']=$producto->getNombre();
+    $_SESSION['temp'][0]['2']=$producto->getImagen();
+    $_SESSION['temp'][0]['3']=$producto->getPrecio();
+    $_SESSION['temp'][0]['4']=$producto->getDescuento();
+    $_SESSION['temp'][0]['5']=$producto->getStock();
+    $_SESSION['temp'][0]['6']=$uds;
+    $_SESSION['indice']=$indice;
+    $_SESSION['temp'][0]['7']=$_SESSION['indice'];
 
     $_SESSION['cart']=$_SESSION['temp'];
     //array_push($_SESSION['cart'],$_SESSION['temp']);
 }else{
 
-    // $nombre=$producto->getNombre();
-    // if (in_array($nombre,$_SESSION['cart'])) {
-    //     $_SESSION['cart'][$producto->getNombre()][6] = $_SESSION['cart'][$producto->getNombre()][6]+1;
-    //     exit();
-       
-    // }
+
+
     $_SESSION['temp']=$_SESSION['cart'];
     //$_SESSION['ind'] = count($_SESSION['temp']);
-    //$_SESSION['ind'] = $_SESSION['ind']+1;
+    $_SESSION['ind'] = $_SESSION['ind']+1;
 
-    $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
-    $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
-    $_SESSION['temp'][$producto->getNombre()]['2']=$producto->getImagen();
-    $_SESSION['temp'][$producto->getNombre()]['3']=$producto->getPrecio();
-    $_SESSION['temp'][$producto->getNombre()]['4']=$producto->getDescuento();
-    $_SESSION['temp'][$producto->getNombre()]['5']=$producto->getStock();
-    $_SESSION['temp'][$producto->getNombre()]['6']=$uds;
-    //$_SESSION['indice']=$_SESSION['ind'] +  1;
-    $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['0']=$producto->getId();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['1']=$producto->getNombre();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['2']=$producto->getImagen();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['3']=$producto->getPrecio();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['4']=$producto->getDescuento();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['5']=$producto->getStock();
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['6']=$uds;
+    $_SESSION['indice']=$_SESSION['ind'] +  1;
+    $_SESSION['temp'][$_SESSION['ind'] +  1]['7']=$_SESSION['indice'];
 
     $_SESSION['cart']=$_SESSION['temp'];
     //array_push($_SESSION['cart'],$_SESSION['temp']);

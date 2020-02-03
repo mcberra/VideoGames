@@ -61,10 +61,26 @@
         <div class="w3-bar w3-black" >
             <a href="/games/indexCAT.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
             <a href="/games/Vistas/registro.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Registro de usuarios" style="text-decoration:none"><span class="glyphicon glyphicon-check"></span> Sing-in </i></a> 
-            <a href="/games/Vistas/carrito.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Carrito de compras" style="text-decoration:none;float:right"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping-cart </i></a>
+            <a href="/games/Vistas/carrito.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Carrito de compras" style="text-decoration:none;float:right">
+             
+            <?php
+              session_start();
+                  if (isset($_SESSION['cart'])) {
+                      $num_articulos = [];
+                      foreach ($_SESSION['cart'] as $key => $value) {
+                          array_push($num_articulos,$value[6]);
+                      }
+                      $displa_num_articulos = array_sum($num_articulos);
+                      
+                      //echo array_sum($_SESSION['total']);
+                      echo "<span style='color:white;font-size:160%'> [ ".$displa_num_articulos." ]</span>";
+                  }  
+            ?>
+            
+            <span class="glyphicon glyphicon-shopping-cart"></span> Shopping-cart </i></a>
             <?php
 
-            session_start();
+            
 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
                       
