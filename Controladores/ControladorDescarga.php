@@ -170,6 +170,7 @@ class ControladorDescarga
             }
             $sal.='</div>';
         }
+        $sal.='<h6 style="text-align:center">Iva :'.$_SESSION['iva'].' €</h6>';
         $sal.='<h4 style="text-align:center">Total :'.array_sum($_SESSION['total']).' €</h4>';
         $sal.='<p>Para obtener más información, consulta la Política de cambios y reembolsos y el derecho a cancelar tu suscripción en nuestro apartado de Condiciones de compra .</p>';
         $sal.='<p>Este ticket es imprescindible para cualquier cambio o devolución. Puedes presentarlo en tu dispositivo móvil o imprimirlo.</p>';

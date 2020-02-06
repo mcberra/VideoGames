@@ -80,13 +80,13 @@ echo "<div class='all'>";
                             $descuento=$detalles[4];  
                             if ($descuento > 0) {//calculamos el descuento si lo tiene
                                 $price=($detalles[3])-($detalles[3]*$detalles[4]/100);
-                                echo "<p style='text-align:center'><del> € ".$detalles[3]." </del> <i style='color:red'>€".$price."</i> </p>"; 
+                                echo "<p style='text-align:center'><del> ".$detalles[3]." € </del> <i style='color:red'>".$price." €</i> </p>"; 
                                 $sums = 0;
                                 $sums = $detalles[6] * $price;//multiplicamos el precio por las unidades
                                 $_SESSION['tempo']=$sums;//lo vamos agregando a un array temporal
                                 array_push($_SESSION['total'],$_SESSION['tempo']); //finalmente lo agregamos al array total
                             }else{
-                                echo "<p style='text-align:center'> € ".$detalles[3]."   </p>";
+                                echo "<p style='text-align:center'> ".$detalles[3]." €   </p>";
                                 $sums = 0;
                                 $sums = $detalles[6] * $detalles[3];
                                 $_SESSION['tempo']=$sums;

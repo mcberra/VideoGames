@@ -68,8 +68,9 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" || $_SESSION['paym
         ?>
 
     </div>
-
-    <h6 style="float:right"> Total: <?php echo array_sum($_SESSION['total']); ?>€</h6>
+    <?php $_SESSION['iva'] = array_sum($_SESSION['total'])*21/100 ?>
+    <h6 style="float:right"> Iva: <?php echo $_SESSION['iva']; ?>€</h6><br><br>
+    <h4 style="float:right"> Total: <?php echo array_sum($_SESSION['total']); ?>€</h4>
     <br><br><br><br><br>
     <p style="font-size:75%">
         Para obtener más información, consulta la Política de cambios y reembolsos y el derecho a cancelar tu suscripción en nuestro apartado de Condiciones de compra .

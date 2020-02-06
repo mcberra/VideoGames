@@ -86,10 +86,10 @@ echo "<div class='all'>";
                     $descuento=$producto->getDescuento(); //aplicamos el descuento
                     if ($descuento > 0) {
                         $price=($producto->getPrecio()-($producto->getPrecio()*$descuento/100));
-                        echo "<p style='text-align:center'><del> € ".$producto->getPrecio()." </del> <i style='color:red'>€".$price."</i> </p>"; 
+                        echo "<p style='text-align:center'><del> ".$producto->getPrecio()." €  </del> <i style='color:red'>".$price." €</i> </p>"; 
 
                     }else{
-                        echo "<p style='text-align:center'> € ".$producto->getPrecio()."   </p>";
+                        echo "<p style='text-align:center'>  ".$producto->getPrecio()." €  </p>";
                     }
                 echo "</div>";
                 echo '<div class="w3-row">';
