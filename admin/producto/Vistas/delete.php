@@ -1,4 +1,5 @@
 <?php
+//en esta pagina borramos los productos
         require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once CONTROLLER_PATH."ControladorImagen.php";
@@ -14,7 +15,8 @@
         if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
           header("location: /games/admin/producto/Vistas/Login.php");
         }
- /***************************************************seguro********************************************************************* */      
+ /***************************************************seguro********************************************************************* */
+       
         // Obtenemos los datos del alumno que nos vienen de la página anterior
         if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             // Cargamos el controlador de alumnos

@@ -120,7 +120,7 @@ class ControladorDescarga
     }
 
     
-    public function descargarPDF(){
+    public function descargarPDF(){//funcion para imprimir la factura
         session_start();
         $id_compra = $_SESSION["id_compra"];
         $controlador = ControladorAlumno::getControlador();

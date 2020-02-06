@@ -230,8 +230,8 @@ class ControladorAlumno {
         }    
     }
 
+    //almacenamos lo recibido del formulario de direccion
     public function almacenarDireccion($email_usuario,$direccion, $direccion2, $ciudad, $estado, $codigo_postal, $pais,$id_compra){
-        //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "INSERT INTO direccion ( email_usuario,direccion, direccion2, 
@@ -245,8 +245,7 @@ class ControladorAlumno {
         return $estado;
     }
 
-    public function almacenarTarjeta($email_usuario, $id_compra, $numero_tarjeta, $total, $fecha){
-        //$alumno = new Alumno("",$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
+    public function almacenarTarjeta($email_usuario, $id_compra, $numero_tarjeta, $total, $fecha){//almacenamos lo recibido del formulario de pago
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "INSERT INTO ventas ( email_usuario,numero_tarjeta, id_compra, 
@@ -261,7 +260,7 @@ class ControladorAlumno {
     }
 
 
-    public function buscarIdcompra($id_compra){ 
+    public function buscarIdcompra($id_compra){ //buscamos el id de la compra
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "SELECT * FROM direccion WHERE id_compra = :id_compra";
@@ -284,7 +283,7 @@ class ControladorAlumno {
 
 
 
-     public function buscarStock($nombre){ 
+     public function buscarStock($nombre){ //buscamos todos los datos de un usuario
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "SELECT * FROM producto  WHERE nombre = :nombre";
@@ -305,7 +304,7 @@ class ControladorAlumno {
     }
 
 
-    public function actualizarStock( $stock,  $nombre){
+    public function actualizarStock( $stock,  $nombre){//funcion que actualiza el stock
          $bd = ControladorBD::getControlador();
          $bd->abrirBD();
          $consulta = "UPDATE producto SET   stock=:stock WHERE nombre=:nombre ";
@@ -317,7 +316,7 @@ class ControladorAlumno {
 
 
 
-     public function buscarDuplicadoEmail($email){ 
+     public function buscarDuplicadoEmail($email){ //obtenemos todos los datos de un usuariio en base a su email
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "SELECT * FROM usuarios  WHERE email = :email";

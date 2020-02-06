@@ -9,7 +9,7 @@ require_once MODEL_PATH."alumno.php";
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-session_start();
+session_start();//seguro de la pagina
 if (!isset($_SESSION['USUARIO']['email'])) {
   header("location: /games/admin/producto/Vistas/Login.php");
 }
@@ -88,31 +88,13 @@ function objectToArray2 ( $usuario ) {
 $temp_usu = objectToArray2($usuario);
 
 $array_usu = [];
-foreach ($temp_usu as $a) {
+foreach ($temp_usu as $a) {//obtenemos todos los datos de un usuario en base a su email
     $a = array_shift($temp_usu);
 
     array_push($array_usu,$a);
 }
 
-
-// if (isset($usuario) && $array_usu[0] != $_SESSION['USUARIO']['email'][2]) {
-    
-//         alerta("El e-mail que introdujo ya existe.");
-//         $emailerr = $emailerr+1;
-    
-// }
-
-// $fecha = date("d-m-Y", strtotime(filtrado($_POST["fecha"])));
-// $hoy =date("d-m-Y",time());
-// $fechaerr = 0;
-// $fecha_mat = new Datetime($fecha);
-// $fecha_hoy = new Datetime($hoy);
-// $intervalo = $fecha_hoy->diff($fecha_mat);
-// if($intervalo->format('%R%a dias')>0){
-//     $fechaerr = $fechaerr+1;
-//     alerta("La fecha no puede ser superior a la fecha actual");
-// }
- $fecha = $array_usu[7];
+ $fecha = $array_usu[7];//obtenemos la fecha de alta directamente de la BBDD
 
   
 /*----------------------------------------------COMPROBACION IMAGEN-----------------------------------------------------------------*/

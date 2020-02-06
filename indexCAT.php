@@ -13,4 +13,6 @@ p.imp{
 
 
 
-<?php require_once VIEW_PATH."lista_cat.php"; ?>
+<?php
+//esta pagina nos enlaza a otra que a su vez nos lleva finalmente al catalogo
+require_once VIEW_PATH."lista_cat.php"; ?>

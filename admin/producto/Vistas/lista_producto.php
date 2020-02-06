@@ -1,4 +1,5 @@
 <?php
+//en esta pagina mostramos un listado de los productos para el admin/s
     require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
     require_once CONTROLLER_PATH."ControladorAlumno.php";
     require_once CONTROLLER_PATH."ControladorImagen.php";
@@ -7,33 +8,34 @@
     require_once MODEL_PATH."alumno.php";
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-session_start();
+session_start();//seguro de la pagina
 if (!isset($_SESSION['USUARIO']['email'])) {
   header("location: /games/admin/producto/Vistas/Login.php");
 }
 if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
   header("location: /games/admin/producto/Vistas/Login.php");
 }
+
 ?>
 <div style="margin-left:19%">
-<h1 style="margin-top:30px" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Listado de productos</h1><br><br>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <h1 style="margin-top:30px" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Listado de productos</h1><br><br>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
-             
+<!-- formulario para el buscador -->
+    <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     
-<input type="text" id="buscar" name="producto" placeholder="Busque aqui por nombre..." class="w3-input">
-                    
-<button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
+        <input type="text" id="buscar" name="producto" placeholder="Busque aqui por nombre..." class="w3-input">
+                            
+        <button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
 
-<a href="/games/admin/producto/Vistas/create.php" class="w3-btn w3-green">  Añadir Producto</a>
-</form>
- <style>
+        <a href="/games/admin/producto/Vistas/create.php" class="w3-btn w3-green">  Añadir Producto</a>
+    </form>
+
+<style>
 #pag{
         
         list-style-type:none;
@@ -53,13 +55,14 @@ if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='n
        font-size:bolder;
    }  
 </style> 
+
 <?php
     require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
     require_once CONTROLLER_PATH."ControladorAlumno.php";
     require_once UTILITY_PATH."funciones.php";
     require_once CONTROLLER_PATH . "Paginador.php";
 
-    if (!isset($_POST["producto"])) {
+    if (!isset($_POST["producto"])) {//almacenamos la informacion introducida en el buscador
         $nombre = ""; 
     } else {
         $nombre = filtrado($_POST["producto"]);  

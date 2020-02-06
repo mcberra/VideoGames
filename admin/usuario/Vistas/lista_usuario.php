@@ -1,14 +1,15 @@
 <?php
-
+//en esta pagina mostramos un listado de los usuarios existentes
 require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";
 require_once UTILITY_PATH."funciones.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
 require_once MODEL_PATH."alumno.php";
+
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-session_start();
+session_start();//seguro de la pagina
 if (!isset($_SESSION['USUARIO']['email'])) {
   header("location: /games/admin/producto/Vistas/Login.php");
 }
@@ -18,24 +19,22 @@ if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='n
 
 ?>
 <div style="margin-left:19%">
-<h1 style="margin-top:30px" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Listado de usuarios </h1><br><br>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <h1 style="margin-top:30px" class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Listado de usuarios </h1><br><br>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
-             
+    <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
     
-<input type="text" id="buscar" name="usuario" placeholder="Busque aqui por nombre o apellidos..." class="w3-input">
-                    
-<button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
+        <input type="text" id="buscar" name="usuario" placeholder="Busque aqui por nombre o apellidos..." class="w3-input">
+                            
+        <button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
 
 
-<a href="/games/admin/usuario/Vistas/create.php" class="w3-btn w3-green">  Añadir Usuario</a>
-</form>
+        <a href="/games/admin/usuario/Vistas/create.php" class="w3-btn w3-green">  Añadir Usuario</a>
+    </form>
  <style>
 #pag{
         
@@ -62,7 +61,7 @@ if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='n
     require_once UTILITY_PATH."funciones.php";
     require_once CONTROLLER_PATH . "Paginador.php";
 
-    if (!isset($_POST["usuario"])) {
+    if (!isset($_POST["usuario"])) {//almacenamos los datos introducidos en el buscador
         $nombre = "";
         $apellido = "";
         

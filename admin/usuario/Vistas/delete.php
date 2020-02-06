@@ -1,4 +1,5 @@
 <?php
+//en esta pagina podemos borrar a los usuarios de la BBDD
         require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once CONTROLLER_PATH."ControladorImagen.php";
@@ -8,7 +9,7 @@
 
         error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-        session_start();
+        session_start();//seguro de la pagina
         if (!isset($_SESSION['USUARIO']['email'])) {
           header("location: /games/admin/producto/Vistas/Login.php");
         }

@@ -1,6 +1,6 @@
 
   <?php
-
+//en esta pagina enlazamos al listado del producto solo si el usuario es admin
 require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
 require_once MODEL_PATH."alumno.php";
 require_once CONTROLLER_PATH."ControladorBD.php";

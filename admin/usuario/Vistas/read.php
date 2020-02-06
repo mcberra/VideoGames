@@ -1,4 +1,5 @@
 <?php
+//en esta pagiona mostramos todos los datos de los usuarios
         require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once UTILITY_PATH."funciones.php";

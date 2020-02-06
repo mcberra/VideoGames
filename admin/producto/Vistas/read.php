@@ -1,4 +1,5 @@
 <?php
+//mostramos todos los datos del producto
         require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once UTILITY_PATH."funciones.php";
@@ -16,7 +17,7 @@
         }  
 /*********************************************************************seguro************************************* */
 
-        if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+        if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){//buscamos el producto en la BBDD con el id pasado
             $id = decode($_GET["id"]);
             $controlador = ControladorAlumno::getControlador();
             $producto= $controlador->buscarAlumno($id);

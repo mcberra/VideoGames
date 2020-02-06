@@ -1,5 +1,6 @@
 
 <?php
+//formulario utilizado para añadir productos
     require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
     require_once CONTROLLER_PATH."ControladorAlumno.php";
     require_once CONTROLLER_PATH."ControladorImagen.php";
@@ -22,19 +23,42 @@ if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='n
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Enviar"]){
 
-        
-        $nombre=filtrado($_POST["nombre"]);
+
         $tipo=filtrado($_POST["tipo"]);
+        $tipoerr = 0;
+        if (empty($tipo)) {
+            $tipoerr = $tipoerr + 1;
+        }
+
         $distribuidor=filtrado($_POST["distribuidor"]);
+        $distribuidorerr = 0;
+        if (empty($distribuidor)) {
+            $distribuidorerr = $distribuidorerr + 1;
+        }
+
         $precio=filtrado($_POST["precio"]);
+        $precioerr = 0;
+        if (empty($precio)) {
+            $precioerr = $precioerr + 1;
+        }
+
         $descuento=filtrado($_POST["descuento"]);
+        $descuentoerr = 0;
+        if (empty($descuento)) {
+            $descuentoerr = $descuentoerr + 1;
+        }
+
         $stock=filtrado($_POST["stock"]);
-      
+        $stockerr = 0;
+        if (empty($stock)) {
+            $stockerr = $stockerr + 1;
+        }
         
 
 
 
 /*----------------------------------------------COMPROBACION NOMBRE-----------------------------------------------------------------*/
+$nombre=filtrado($_POST["nombre"]);
 
             $nombreerr = 0;
             if(empty($nombre)){
@@ -87,7 +111,7 @@ if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='n
                     
 /*-----------------------------------------------------------------------------------------------------------------------------*/           
 
-            
+  //realizamos las comprobaciones antes de enviar la informacion a la BBDD            
       
         if (   $nombreerr == 0 && $mod = true && $imagenerr == 0) {
         $controlador = ControladorAlumno::getControlador();
