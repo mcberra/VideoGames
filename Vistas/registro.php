@@ -1,6 +1,6 @@
 
 <?php
-
+//en esta pagina los usuarios se pueden registrar a nuestra web
 require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/usuario/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";

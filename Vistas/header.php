@@ -62,10 +62,10 @@
             <a href="/games/indexCAT.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Inicio"><i class=" w3-large fa fa-home"></i></i></a>
             <a href="/games/Vistas/registro.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Registro de usuarios" style="text-decoration:none"><span class="glyphicon glyphicon-check"></span> Sing-in </i></a> 
             <a href="/games/Vistas/carrito.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Carrito de compras" style="text-decoration:none;float:right">
-             
+            <!-- boton de inicio, enlace a la pagina de registro y al carrito -->
             <?php
               session_start();
-                  if (isset($_SESSION['cart'])) {
+                  if (isset($_SESSION['cart'])) {//imprimimos el numero de articulos que hay en el carrito
                       $num_articulos = [];
                       foreach ($_SESSION['cart'] as $key => $value) {
                           array_push($num_articulos,$value[6]);
@@ -84,7 +84,7 @@
 
             error_reporting(E_ERROR | E_WARNING | E_PARSE);
                       
-            if(isset($_SESSION['USUARIO']['email'])){
+            if(isset($_SESSION['USUARIO']['email'])){//menu mostrado con cualquier tipo de log
                 
                 echo '<div class="w3-dropdown-hover w3-mobile">';
                     echo '<button class="w3-button w3-black w3-hover-none w3-text-white w3-hover-text-white"><i class=" w3-large fa fa-user"></i> '.$_SESSION['USUARIO']['email'][0].' <i class="fa fa-caret-down"></i></button>';         
@@ -92,7 +92,7 @@
                         echo '<a href="/games/Vistas/perfil_config.php?id=' . encode($_SESSION['USUARIO']['email'][2]) . '" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" style="text-decoration:none"><span class="glyphicon glyphicon-edit"></span> Configuracion de perfil</a>';
                         echo '</div>';
                     echo '</div>';
-              if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {
+              if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {//solo se muestran estas opciones si somos admin
                 echo '<div class="w3-dropdown-hover w3-mobile">';
                 echo '<button class="w3-button w3-black w3-hover-none w3-text-white w3-hover-text-white"> <span class="glyphicon glyphicon-cog"></span> Administration <i class="fa fa-caret-down"></i></button>';
                 //echo '<a href="/games/admin/administracion.php" class="w3-bar-item w3-button w3-black w3-hover-black w3-text-grey w3-hover-text-white" title="Gestion de usuarios y productos" style="text-decoration:none"><span class="glyphicon glyphicon-cog"></span> Administracion</a>';         
@@ -106,7 +106,7 @@
               }
                 echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Log-Out"><i class=" w3-large fa fa-sign-out"> Log-out</i></a>';           
             } else{
-                    // Menú sin log
+                    // Menú sin logearnos
                     echo '<a href="#" style="text-decoration:none" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white">Not logged</a>';
                     echo '<a href="/games/Vistas/login.php" class="w3-bar-item w3-button w3-hover-none w3-border-black w3-bottombar w3-hover-border-white w3-hover-text-white" title="Log-In"><i class="w3-large fa fa-sign-in"> Log-in</i></a>';
                 }

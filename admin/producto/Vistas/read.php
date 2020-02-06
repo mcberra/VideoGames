@@ -27,41 +27,59 @@
         }
 ?>
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:20px;
+	}
+</style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-                    <table>
-                        <tr>
-                            <td class="col-xs-11" class="align-top">
-                                <div class="form-group" class="align-left">
-                                <label><b>Nombre</b></label>
-                                <p class="form-control-static"><?php echo $producto->getNombre(); ?></p>
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
+<img src='<?php echo "/games/admin/producto/imagenes/" . $producto->getImagen() ?>' alt="Alps" style="width:100%">
 
+<table class="w3-table ">
 
-                                </div>
-                            </td>
-                            <td class="align-left">
-                                <label><b>Fotografía</b></label><br>
-                                <img src='<?php echo "../imagenes/" . $producto->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                            </td>
-                        </tr>
-                    </table>
-                
-                        <label><b>Tipo</b></label>
-                                <p class="form-control-static"><?php echo $producto->getTipo(); ?></p>
-                        <label><b>Distribuidor</b></label>
-                            <p class="form-control-static"><?php echo $producto->getDistribuidor(); ?></p>
-                 
-                        <label><b>Precio</b></label>
-                        <p class="form-control-static"><?php echo str_repeat("*",strlen($producto->getPrecio())); ?></p>
-                  
-                        <label><b>Descuento</b></label>
-                            <p class="form-control-static"><?php echo $producto->getDescuento(); ?></p>
-                  
-                        <label><b>Stock</b></label>
-                            <p class="form-control-static"><?php echo $producto->getStock(); ?></p>
-               
+<tbody>
+    <tr>
+        <td>Nombre del producto</td>
+        <td><?php echo $producto->getNombre(); ?></td>
+    </tr>
+    <tr>
+        <td>Video juego del tipo</td>
+        <td><?php echo $producto->getTipo(); ?></button> </td>
+    </tr>
+    <tr>
+        <td>Precio</td>
+        <td>
+            <?php 
+                $descuento=$producto->getDescuento(); 
+                if ($descuento > 0) {
+                    $price=($producto->getPrecio()-($producto->getPrecio()*$descuento/100));
+                    echo "<p><del> € ".$producto->getPrecio()." </del> <i style='color:red'>€".$price."</i> </p>"; 
 
-                 
-                    <p><a href="/games/admin/producto/gestion.php" class="w3-btn w3-blue"> Volver</a></p>
- 
+                }else{
+                    echo "<p> € ".$producto->getPrecio()."   </p>";
+                }
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Descuento</td>
+        <td><?php echo $producto->getDescuento(); ?>%</td>
+    </tr>
+    <tr>
+        <td>Stock</td>
+        <td><?php echo $producto->getStock(); ?></td>
+    </tr>
+
+</tbody>
+</table>
+                     
+
+    
+                            <a href="/games/admin/producto/gestion.php" class="w3-btn w3-block w3-black  w3-hover-blue" style="width:100%;text-decoration:none"> Volver</a>
+                   
+ </div>
 <br><br><br>
 <?php require_once VIEW_PATH."footer.php"; ?>

@@ -6,6 +6,7 @@
         require_once CONTROLLER_PATH."ControladorBD.php";
         require_once MODEL_PATH."alumno.php";
 
+        error_reporting(E_ERROR | E_WARNING | E_PARSE);
         session_start();
         if (!isset($_SESSION['USUARIO']['email'])) {
           header("location: /games/admin/producto/Vistas/Login.php");
@@ -51,25 +52,21 @@
 ?>
 
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<h1>Borrar Producto</h1>
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
+<img  src='<?php echo "../imagenes/" . $producto->getImagen() ?>' alt="Alps" style="width:50%;float:right">
             
-<table>
-                        <tr>
-                            <td class="col-xs-11" class="align-top">
-                                <div class="form-group" class="align-left">
                                 <label><b>Nombre</b></label>
                                 <p class="form-control-static"><?php echo $producto->getNombre(); ?></p>
 
 
-                                </div>
-                            </td>
-                            <td class="align-left">
-                                <label><b>Fotografía</b></label><br>
-                                <img src='<?php echo "../imagenes/" . $producto->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                            </td>
-                        </tr>
-                    </table>
                 
                         <label><b>Tipo</b></label>
                                 <p class="form-control-static"><?php echo $producto->getTipo(); ?></p>
@@ -91,9 +88,10 @@
                         <input type="hidden" name="id" value="<?php echo trim($id); ?>"/>
                         <p>¿Está seguro que desea borrar este alumno/a?</p><br>
                         <p>
-                            <button type="submit" class="w3-btn w3-red">   Borrar</button>
-                            <a href="/games/admin/producto/gestion.php" class="w3-btn w3-blue"> Volver</a>
+                            <button type="submit" class="w3-btn w3-red w3-border  w3-round-large">   Borrar</button>
+                            <a href="/games/admin/producto/gestion.php" class="w3-btn w3-blue w3-border  w3-round-large" style="text-decoration:none"> Volver</a>
                         </p>
                     </div>
                 </form>
+</div>
 <?php require_once VIEW_PATH."footer.php"; ?>

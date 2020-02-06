@@ -8,53 +8,83 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
 
 
-// if ($_SESSION["RV_seguro"]=="iniciada") {
-//   header("Location: /games/Vistas/resumen_venta.php");
-// }
-
-if (empty($_SESSION['total'])) {//seguro de la pagina
+if (empty($_SESSION['total'])) {//seguro de la pagina, solo si hay un total, se puede acceder a esta pagina
   header("Location: /games/IndexCAT.php");
 }
 
 if (isset($_GET["email"])) {
-    $email_usuario = decode($_GET["email"]);
+    $email_usuario = decode($_GET["email"]);//recibimos el email pasado por get y lo decodificamos
 }
 
 $_SESSION["RV_seguro"]="no";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["save"]) {
+
+  $_SESSION["RV_seguro"]="iniciada";//Creo esta variable para el seguro de la pagina para el seguro de la pagina,solo si se inicia se puede acceder a la siguente pag. 
+
     $direccion=filtrado($_POST["direccion"]);
+    $direccionerr = 0;
+    if (empty($direccion)) {
+      $direccionerr = $direccionerr = + 1;
+  }
+
     $direccion2=filtrado($_POST["direccion2"]);
     if (empty($direccion2)) {
         $direccion2="ninguna";
     }
     
-    $_SESSION["RV_seguro"]="iniciada";//seguro de la pagina
+    
 
     $ciudad=filtrado($_POST["ciudad"]);
-    $estado=filtrado($_POST["estado"]);
-    $codigo_postal=filtrado($_POST["codigo_postal"]);
-    $pais=filtrado($_POST["pais"]);
-    $email_usuario=filtrado($_POST["email_usuario"]);
-    $id_compra=filtrado($_POST["id_compra"]);
+    $ciudaderr = 0;
+    if (empty($ciudad)) {
+      $ciudaderr = $ciudaderr = + 1;
+  }
 
+    $estado=filtrado($_POST["estado"]);
+    $estadoerr = 0;
+    if (empty($estado)) {
+      $estadoerr = $estadoerr = + 1;
+  }
+
+    $codigo_postal=filtrado($_POST["codigo_postal"]);
+    $codigo_postalerr = 0;
+    if (empty($codigo_postal)) {
+      $codigo_postalerr = $codigo_postalerr = + 1;
+  }
+
+    $pais=filtrado($_POST["pais"]);
+    $paiserr = 0;
+    if (empty($pais)) {
+      $paiserr = $paiserr = + 1;
+  }
+    
+    $id_compra=filtrado($_POST["id_compra"]);
+    $id_compraerr = 0;
+    if (empty($id_compra)) {
+      $id_compraerr = $id_compraerr = + 1;
+  }
+
+    $email_usuario=filtrado($_POST["email_usuario"]);
     if (empty($email_usuario)) {
         $email_usuario="invitado";
     }
 
+    //comprobamos si hay errores
+    if ($direccionerr == 0 && $ciudaderr == 0 && $estadoerr == 0 && $codigo_postalerr == 0 && $paiserr == 0 && $id_compraerr == 0) {
 
+      $controlador = ControladorAlumno::getControlador();//almacenamos la direccion
+      $estado = $controlador->almacenarDireccion( $email_usuario,$direccion, $direccion2, $ciudad, $estado, $codigo_postal, $pais,$id_compra);
+      if($estado){
 
-    $controlador = ControladorAlumno::getControlador();
-    $estado = $controlador->almacenarDireccion( $email_usuario,$direccion, $direccion2, $ciudad, $estado, $codigo_postal, $pais,$id_compra);
-    if($estado){
-
-        header("location: /games/Vistas/resumen_venta.php");
-        exit();
-    }else{
-        header("location: error.php");
-        exit();
-    }
-}
+          header("location: /games/Vistas/resumen_venta.php");
+          exit();
+      }else{
+          header("location: error.php");
+          exit();
+      }
+  }//Fin if confirmacion de errores
+}//fin de if SERVER
 ?>
 
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

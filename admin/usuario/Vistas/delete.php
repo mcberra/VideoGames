@@ -70,12 +70,18 @@
 ?>
 
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<h1>Borrar Alumno</h1>
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
+<img  src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' alt="Alps" style="width:50%;float:right">
             
-                <table>
-                    <tr>
-                        <td class="col-xs-11" class="align-top">
+    
                            
                                
                         <label><b>Nombre</b></label>
@@ -84,17 +90,8 @@
                         <label><b>Apellido</b></label>
                         <p class="form-control-static"><?php echo $usuario->getApellido(); ?></p>
                               
-                        </td>
-                        <td class="align-left">
-                            <label><b>Fotografía</b></label><br>
-                            <img src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                        </td>
-                    </tr>
-                </table>
+  
 
-                  
-
-               
                         <label><b>Email</b></label>
                             <p class="form-control-static"><?php echo $usuario->getEmail(); ?></p>
                 
@@ -117,9 +114,10 @@
                         <input type="hidden" name="id" value="<?php echo trim($id); ?>"/>
                         <p>¿Está seguro que desea borrar este alumno/a?</p><br>
                         <p>
-                            <button type="submit" class="w3-btn w3-red">   Borrar</button>
-                            <a href="/games/admin/usuario/gestion.php" class="w3-btn w3-blue"> Volver</a>
+                            <button type="submit" class="w3-btn w3-red w3-border  w3-round-large">   Borrar</button>
+                            <a href="/games/admin/usuario/gestion.php" style="text-decoration:none" class="w3-btn w3-blue w3-border  w3-round-large"> Volver</a>
                         </p>
                     </div>
                 </form>
+</div>
 <?php require_once VIEW_PATH."footer.php"; ?>

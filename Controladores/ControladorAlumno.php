@@ -281,17 +281,6 @@ class ControladorAlumno {
         }    
     }
 
-    // public function actualizarStock($stock, $nombre){
-    //     // $alumno = new Alumno($id,$dni, $nombre, $email, $password, $idioma, $matricula, $lenguaje, $fecha, $imagen);
-    //      $bd = ControladorBD::getControlador();
-    //      $bd->abrirBD();
-    //      $consulta = "UPDATE producto SET  stock=:stock
-    //          WHERE nombre=:".$nombre;
-    //      $parametros= array(':stock' => $stock,':nombre' => $nombre);
-    //      $estado = $bd->actualizarBD($consulta,$parametros);
-    //      $bd->cerrarBD();
-    //      return $estado;
-    //  }
 
 
 
@@ -325,5 +314,28 @@ class ControladorAlumno {
          $bd->cerrarBD();
          return $estado;
      }
+
+
+
+     public function buscarDuplicadoEmail($email){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM usuarios  WHERE email = :email";
+        $parametros = array(':email' => $email);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    } 
+
 
 }

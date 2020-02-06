@@ -27,24 +27,27 @@
         }
 ?>
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-                    <table>
-                        <tr>
-                            <td class="col-xs-11" class="align-top">
-                                <div class="form-group" class="align-left">
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
+
+
+<img  src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' alt="Alps" style="width:50%;float:right">
+                
+                             <div style="widht:40%">
                                 <label><b>Nombre</b></label>
-                                <p class="form-control-static"><?php echo $usuario->getNombre(); ?></p>
+                                <p ><?php echo $usuario->getNombre(); ?></p>
 
                                 <label><b>Apellido</b></label>
-                                <p class="form-control-static"><?php echo $usuario->getApellido(); ?></p>
-                                </div>
-                            </td>
-                            <td class="align-left">
-                                <label><b>Fotografía</b></label><br>
-                                <img src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                            </td>
-                        </tr>
-                    </table>
+                                <p ><?php echo $usuario->getApellido(); ?></p>
+                            </div><br>
+                           
                 
               
                         <label><b>Email</b></label>
@@ -60,9 +63,10 @@
                             <p class="form-control-static"><?php echo $usuario->getTelefono(); ?></p>
                
                         <label><b>Fecha</b></label>
-                            <p class="form-control-static"><?php echo $usuario->getFecha(); ?></p>
+                            <p class="form-control-static"><?php echo $usuario->getFecha(); ?></p><br><br>
                  
-                    <p><a href="/games/admin/usuario/gestion.php" class="w3-btn w3-blue"> Volver</a></p>
- 
+                    
+                    <a href="/games/admin/usuario/gestion.php" class="w3-btn w3-block w3-black  w3-hover-blue" style="width:100%;text-decoration:none"> Volver</a>
+</div> 
 <br><br><br>
 <?php require_once VIEW_PATH."footer.php"; ?>

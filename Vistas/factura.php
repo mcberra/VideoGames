@@ -1,16 +1,16 @@
 <?php
+//en esta pagina realizamos la factura que podemos visualizar antes de imprimirla en pdf
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once UTILITY_PATH."funciones.php";
+
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
 
 if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" || $_SESSION['payment_seguro']=="no" ) {//seguro de la pagina
     header("Location: /games/IndexCAT.php");
   }
-  
-
 
 ?>
  <style>
@@ -40,6 +40,7 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" || $_SESSION['paym
     text-align:center;
 }
 </style>
+
 <?php require_once VIEW_PATH."header.php"; ?>
 <div id=centrar style="width:20%">
     <center><img src="\games\admin\producto\img\GOC.png" alt="titulo" width="200px"></center>
@@ -48,23 +49,23 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" || $_SESSION['paym
     <h6>  <?php echo date("d-m-Y")?> </h6><br><br><br><br>
 
     <div>
-    <?php
-        foreach ($_SESSION['cart'] as  $productos) {
+        <?php
+            foreach ($_SESSION['cart'] as  $productos) {//recorremos el array para pintar los valores deseado y damos formato a los mismos
 
-            echo "<div class='abajo'>";
-            echo "<p> ".$productos[1]."</p>";
-            $descuento=$productos[4];  
-            if ($descuento > 0) {
-                $price=($productos[3])-($productos[3]*$productos[4]/100);
-                echo "<p style='float:right'> uds x <del> ".$productos[3]."€  </del> <i style='color:red'>".$price." €</i> </p>";   
-            }else{
-                echo "<p style='float:right'>uds x    ".$productos[3]." €   </p>"; 
+                echo "<div class='abajo'>";
+                echo "<p> ".$productos[1]."</p>";
+                $descuento=$productos[4];  
+                if ($descuento > 0) {
+                    $price=($productos[3])-($productos[3]*$productos[4]/100);
+                    echo "<p style='float:right'> uds x <del> ".$productos[3]."€  </del> <i style='color:red'>".$price." €</i> </p>";   
+                }else{
+                    echo "<p style='float:right'>uds x    ".$productos[3]." €   </p>"; 
+                }
+                echo "<p>Unidades: ".$productos[6]."</p>";
+                echo "</div>";
+                echo "<br>";
             }
-            echo "<p>Unidades: ".$productos[6]."</p>";
-            echo "</div>";
-            echo "<br>";
-        }
-    ?>
+        ?>
 
     </div>
 
@@ -79,8 +80,10 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" || $_SESSION['paym
     </p>
     
     </div>
-    <!-- <a style="text-align:center"><a href="/games/utilidades/descargar.php?opcion=PDF" class="w3-btn w3-black" target="_blank" style="text-decoration:none"><span class="glyphicon glyphicon-print"></span> PDF</a></p> -->
-    <p style="text-align:center"><a href="/games/Vistas/finalizar.php" class="w3-btn w3-green w3-border w3-border-green w3-round-large" style="text-decoration:none">Finalizar</a></p>
+    <p style="text-align:center">
+    <a href="/games/utilidades/descargar.php?opcion=PDF" class="w3-btn w3-black" target="_blank" style="text-decoration:none"><span class="glyphicon glyphicon-print"></span> PDF</a>
+    <a href="/games/Vistas/finalizar.php" class="w3-btn w3-green w3-border w3-border-green w3-round-large" style="text-decoration:none">Finalizar</a>
+    </p>
 
 
 

@@ -3,7 +3,9 @@
 // Incluimos los ficheros que ncesitamos
 require_once $_SERVER['DOCUMENT_ROOT'] . "/games/admin/producto/Paths.php";
 require_once CONTROLLER_PATH . "ControladorAlumno.php";
-require_once MODEL_PATH . "Alumno.php";
+require_once MODEL_PATH . "alumno.php";
+require_once MODEL_PATH . "compra.php";
+require_once MODEL_PATH . "producto.php";
 require_once VENDOR_PATH . "autoload.php";
 use Spipu\Html2Pdf\HTML2PDF;
 
@@ -117,9 +119,62 @@ class ControladorDescarga
         exit;
     }
 
-
+    
     public function descargarPDF(){
-        $sal ='<h2 class="pull-left">Listado de usuarios</h2>';
+        session_start();
+        $id_compra = $_SESSION["id_compra"];
+        $controlador = ControladorAlumno::getControlador();
+        $compra= $controlador->buscarIdcompra($id_compra);
+
+            function objectToArray ( $compra ) {
+
+                if(!is_object($compra) && !is_array($compra)) {
+            
+                return $compra;
+            
+                }
+                
+                return array_map( 'objectToArray', (array) $compra );
+            
+            }
+            
+            $temp_dir = objectToArray ( $compra );
+            
+            $compra_dir = [];
+            foreach ($temp_dir as $a) {
+                $a = array_shift($temp_dir);
+            
+                array_push($compra_dir,$a);
+            }
+
+            
+            
+        $sal='<div border="1" style="width:25%;margin-left:400px;padding:25px">';   
+        $sal.='<h2 style="text-align:center">Game Over</h2>';
+        //$sal.='<p style="text-align:center">Gracias por su compra!</p>';
+        $sal.='<h4 style="text-align:center">PEDIDO Nº : ' .$_SESSION["id_compra"].' | fecha: '.date("d-m-Y").'</h4>';
+        //$sal.='<h4 style="text-align:center">Fecha : ' .date("d-m-Y").'date("d-m-Y")</h4>';
+        
+        foreach ($_SESSION["cart"] as $a) {
+            $sal.='<div style="border-bottom:solid 2px lightgrey">';
+            $sal.='<p >'.$a[1].' </p>';
+            $sal.='<p >Unidades: '.$a[6].'</p>';
+            $descuento=$a[4];  
+            if ($descuento > 0) {
+                $price=($a[3])-($a[3]*$a[4]/100);
+                //echo "<p style='float:right'> uds x <del> ".$a[3]."€  </del> <i style='color:red'>".$price." €</i> </p>";
+                $sal.='<p style="text-align:center">uds x '.$price.' €</p>';    
+            }else{
+                //echo "<p style='float:right'>uds x    ".$a[3]." €   </p>";
+                $sal.='<p style="text-align:center"> uds x '.$a[3].' €</p>'; 
+            }
+            $sal.='</div>';
+        }
+        $sal.='<h4 style="text-align:center">Total :'.array_sum($_SESSION['total']).' €</h4>';
+        $sal.='<p>Para obtener más información, consulta la Política de cambios y reembolsos y el derecho a cancelar tu suscripción en nuestro apartado de Condiciones de compra .</p>';
+        $sal.='<p>Este ticket es imprescindible para cualquier cambio o devolución. Puedes presentarlo en tu dispositivo móvil o imprimirlo.</p>';
+        $sal.='</div>';
+        
         
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
         $pdf=new HTML2PDF('L','A4','es','true','UTF-8');
@@ -127,4 +182,8 @@ class ControladorDescarga
         $pdf->output('listado.pdf');
 
     }
+
+    
 }
+
+

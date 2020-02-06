@@ -51,7 +51,7 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" ) {//seguro de la 
         
         <?php
             
-            if (isset($_SESSION['USUARIO']['email'])) {
+            if (isset($_SESSION['USUARIO']['email'])) {//indica como se esta realizando la compra
                 echo "<h4>Ha realizado la compra como : <b>" .$_SESSION['USUARIO']['email'][0]."</b></h4>";
             }else{
                 echo "<h4>Ha realizado la compra como invitado.</h4>";
@@ -66,7 +66,7 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" ) {//seguro de la 
 
                 $id_compra = $_SESSION["id_compra"];
                 $controlador = ControladorAlumno::getControlador();
-                $compra= $controlador->buscarIdcompra($id_compra);
+                $compra= $controlador->buscarIdcompra($id_compra);//buscamos el id de la compra
 
                     function objectToArray ( $compra ) {
 
@@ -79,11 +79,11 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" ) {//seguro de la 
                         return array_map( 'objectToArray', (array) $compra );
                     
                     }
-                    print_r($compra);
-                    $temp_dir = objectToArray ( $compra );
+                    //print_r($compra);
+                    $temp_dir = objectToArray ( $compra );//convertimos el objeto en un array
                     
                     $compra_dir = [];
-                    foreach ($temp_dir as $a) {
+                    foreach ($temp_dir as $a) {//obtengo un array de indices numericos
                         $a = array_shift($temp_dir);
                     
                         array_push($compra_dir,$a);
@@ -97,14 +97,14 @@ if (empty($_SESSION['total']) || $_SESSION['RV_seguro']=="no" ) {//seguro de la 
             <div >
                     <h2 style="text-align:center">Productos elegidos</h2><br><br><br>
             <?php
-                foreach ($_SESSION['cart'] as  $productos) {
+                foreach ($_SESSION['cart'] as  $productos) {//recorremos el array
                     echo "<div class=' w3-margin' style='width:46% ' id='box2'>";
                     echo "<center><img src='/games/admin/producto/imagenes/".$productos[2] ."' style='width:25%'> <img></center>";
                     echo "<br>";
                     echo "<p style='text-align:center'>Nombre del producto: ".$productos[1]."</p>";
                     echo "<br>";
                     //echo "<p style='text-align:center'>Precio: ".$productos[3]." €</p>";
-                    $descuento=$productos[4];  
+                    $descuento=$productos[4];  //calculamos el descuento si lo hay
                     if ($descuento > 0) {
                         $price=($productos[3])-($productos[3]*$productos[4]/100);
                         echo "<p style='text-align:center'> Precio por unidad:  <del> ".$productos[3]."€  </del> <i style='color:red'>".$price." €</i> </p>";   

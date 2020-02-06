@@ -1,6 +1,6 @@
 
   <?php
-
+//Esta pagina simplemente nos enlaza al catalogo
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
 require_once MODEL_PATH."producto.php";
 require_once CONTROLLER_PATH."ControladorBD.php";
@@ -10,6 +10,7 @@ require_once CONTROLLER_PATH."ControladorAlumno.php";
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 
+require_once VIEW_PATH."catalogo.php";
 
 // $admins=[];
 // $bd = ControladorBD::getControlador();
@@ -57,7 +58,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 // }
 
 
-require_once VIEW_PATH."catalogo.php";
+
 
 
   ?>

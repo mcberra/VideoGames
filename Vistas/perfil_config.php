@@ -13,9 +13,7 @@ session_start();
 if (!isset($_SESSION['USUARIO']['email'])) {
   header("location: /games/admin/usuario/Vistas/Login.php");
 }
-// if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='no'){
-//   header("location: /games/admin/usuario/Vistas/Login.php");
-// }  
+
 
 /***************************************seguro******************************************************************** */
 
@@ -55,6 +53,39 @@ if(empty($email)){
     alerta("El email que introdujo esta en blanco.");
     $emailerr = $emailerr+1; 
 } 
+
+$controlador = ControladorAlumno::getControlador();
+$usuario = $controlador->buscarDuplicadoEmail($email);
+
+function objectToArray2 ( $usuario ) {
+
+    if(!is_object($usuario) && !is_array($usuario)) {
+
+    return $usuario;
+
+    }
+    
+    return array_map( 'objectToArray2', (array) $usuario );
+
+}
+
+$temp_usu = objectToArray2($usuario);
+
+$array_usu = [];
+foreach ($temp_usu as $a) {
+    $a = array_shift($temp_usu);
+
+    array_push($array_usu,$a);
+}
+
+
+if (isset($usuario) && $array_usu[0] != $_SESSION['USUARIO']['email'][2]) {//no permite que se añadan emails que existan, solo si es el del propio usario.
+    
+        alerta("El e-mail que introdujo ya existe.");
+        $emailerr = $emailerr+1;
+    
+}
+
 
 /*----------------------------------------------COMPROBACION PASSWORD-----------------------------------------------------------------*/
 $passwordErr = 0;
@@ -225,22 +256,16 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                     <input type="password" required name="password"  class="w3-input" value="<?php echo ($password); ?>"
                         readonly><br>
                 
+            <label><b>Administrador</b></label><br>
+            <!-- no permitimos que se auto configure el tipo de usuario a menos que sea admin -->
+                <?php if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {   ?>
             
-            <?php
-                if (isset($_SESSION['USUARIO']['email']) && $_SESSION['USUARIO']['email'][1]=='si') {
-                    echo '<label class="w3-animate-zoom"><b>Administrador</b></label><br>';
-                    echo '<input type="radio" name="admin" class="w3-radio" value="si" '.   (strstr($admin, "si")).' ? "checked" : "">si</input>';
-                    echo '<input type="radio" name="admin" class="w3-radio" value="no" '. (strstr($admin, "no")) .' ? "checked" : "" >no</input><br>';
-                }else {
-                   echo '<label class="w3-animate-zoom"><b>Administrador</b></label><br>';
-                   echo '<input type="radio" name="admin" checked class="w3-radio" value="no" '.  (strstr($admin, "no")) ? "checked" : "" .'>no</input><br>';
-                   
-                   
-                }
-            ?>
+            <input type="radio" name="admin" class="w3-radio" value="si" <?php echo (strstr($admin, 'si')) ? 'checked' : ''; ?>>si</input>
+            <input type="radio" name="admin" class="w3-radio" value="no" <?php echo (strstr($admin, 'no')) ? 'checked' : ''; ?>>no</input><br> 
 
-                    
-            
+                <?php }else{?>  
+            <input type="radio" name="admin" class="w3-radio" value="no" <?php echo (strstr($admin, 'no')) ? 'checked' : ''; ?>>no</input><br>
+            <?php }?> 
                 <!-- Matrícula -->
                 
                 <label class="w3-animate-zoom"><b>Telefono</b></label><br>

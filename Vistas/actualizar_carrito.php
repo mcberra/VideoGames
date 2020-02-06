@@ -9,7 +9,7 @@ require_once MODEL_PATH."alumno.php";
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE);   
 
-if (isset($_GET["suma"])) {
+if (isset($_GET["suma"])) {//si recibimos la variable suma por get esto se ejecuta
     $suma = decode($_GET["suma"]);
     
     if ($_SESSION['cart'][$suma][6] >= $_SESSION['cart'][$suma][5]) {
@@ -22,7 +22,7 @@ if (isset($_GET["suma"])) {
 
 }
 
-if (isset($_GET["resta"])) {
+if (isset($_GET["resta"])) {//si recibimos la variable resta por get esto se ejecuta
     $resta = decode($_GET["resta"]);
     if ($_SESSION['cart'][$resta][6] < 2 ) {
         alerta("Solo le queda un objeto de este tipo en el carrito, si quiere borrarlo pulse borrar.");

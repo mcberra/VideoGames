@@ -1,4 +1,5 @@
 <?php
+//con esta pagina podemos ver toda la info del producto haciendo click en la img del producto en el carrito
         require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once UTILITY_PATH."funciones.php";

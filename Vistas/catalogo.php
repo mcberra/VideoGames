@@ -15,12 +15,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- input para el buscador -->
 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
     <input type="text" id="buscar" name="producto" placeholder="Busque aqui por nombre..." class="w3-input">
                     
     <button type="submit"class="w3-btn w3-black" >  <i class="fa fa-search "></i></button>
 </form>
- <style>
+
+<style>
 
 div.all{
     min-height:450px;
@@ -46,6 +48,7 @@ div.mid{
 }
     
 </style> 
+
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/games/admin/producto/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
@@ -55,7 +58,7 @@ require_once CONTROLLER_PATH . "Paginador.php";
 if (!isset($_POST["producto"])) {
     $nombre = "";  
 } else {
-    $nombre = filtrado($_POST["producto"]);    
+    $nombre = filtrado($_POST["producto"]); //almacenamos el valor introducido en el buscador   
 }
    
 $controlador = ControladorAlumno::getControlador();
@@ -80,7 +83,7 @@ echo "<div class='all'>";
                     echo "<a href='/games/Vistas/ver_producto.php?id=" . encode($producto->getId()) . "' ><img src='/games/admin/producto/imagenes/".$producto->getImagen()."' style='width:100%' class='w3-button'> <img></a>";
                     echo  "<p style='text-align:center'><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large'> " .$producto->getNombre() ."</button></p><br>";
                     
-                    $descuento=$producto->getDescuento(); 
+                    $descuento=$producto->getDescuento(); //aplicamos el descuento
                     if ($descuento > 0) {
                         $price=($producto->getPrecio()-($producto->getPrecio()*$descuento/100));
                         echo "<p style='text-align:center'><del> € ".$producto->getPrecio()." </del> <i style='color:red'>€".$price."</i> </p>"; 
@@ -94,7 +97,12 @@ echo "<div class='all'>";
                     echo "<p><a href='/games/Vistas/ver_producto.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-black w3-border w3-border-black w3-round-large'> Mas info.</a></p>";
                     echo "</div>";
                     echo '<div class="w3-third w3-center">';
-                    echo "<p><a href='/games/Vistas/add.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'><span class='glyphicon glyphicon-shopping-cart'></span> Añadir</a></p>";
+                    if ($producto->getStock() == 0) {//no se puede añadir al carrito si no hay stock
+                        echo '<button type="submit" class="w3-btn w3-red w3-border  w3-round-large">   Sold out</button>';
+                    }else{
+                        echo "<p><a href='/games/Vistas/add.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'><span class='glyphicon glyphicon-shopping-cart'></span> Añadir</a></p>";
+                    }
+                    
                     echo "</div>";
                     echo '<div class="w3-third w3-center w3-margin-bottom">';
                     echo "<p><a href='/games/Vistas/comprar.php?id=" . encode($producto->getId()) . "' title='Mas informacion' style='text-decoration:none' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'> Comprar</a></p>";

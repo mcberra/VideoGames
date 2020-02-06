@@ -141,30 +141,23 @@ if (   $nombreerr == 0 && $mod = true  ) {
  
 
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
-                    <table>
-                        <tr>
-                            <td class="col-xs-11" class="align-top">
-                                <!-- DNI-->
+<center><img  src='<?php echo "../imagenes/" . $producto->getImagen() ?>' alt="Alps" style="width:70%"></center><br><br>
                                 
                             <!-- Nombre-->
                             <label><b>Nombre</b></label><br>
                             <input type="text" name="nombre" class="w3-input" value="<?php echo $nombre; ?>"><br><br>
 
-
-                                    
-                               
-                            </td>
-                            <!-- Fotogrsfía -->
-                            <td class="align-left">
-                                <label><b>Fotografía</b></label><br>
-                                <img src='<?php echo "../imagenes/" . $producto->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                            </td>
-                        </tr>
-                    </table>
-
-                        
                              <!-- tipo-->
                              <label><b>Tipo</b></label><br>
                         <input type="radio" name="tipo" class="w3-radio" value="ordenador" <?php echo (strstr($tipo, 'ordenador')) ? 'checked' : ''; ?>>ordenador</input>
@@ -193,13 +186,15 @@ if (   $nombreerr == 0 && $mod = true  ) {
                         
                          <label><b>Fotografía</b></label><br>
                         <!-- Solo acepto imagenes jpg -->
-                            <input type="file"  name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br>   
+                            <input type="file"  name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br><br><br>   
                      
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                         <input type="hidden" name="imagenAnterior" value="<?php echo $imagenAnterior; ?>"/>
-                        <button type="submit" value="Enviar" class="w3-btn w3-green"> </span>  Modificar</button>
-                        <a href="/games/admin/producto/gestion.php" class="w3-btn w3-blue"></span> Volver</a>
+                        <p style="text-align:center">
+                        <button type="submit" value="Enviar" class="w3-btn w3-green w3-border  w3-round-large"> </span>  Modificar</button>
+                        <a href="/games/admin/producto/gestion.php" class="w3-btn w3-blue w3-border  w3-round-large" style="text-decoration:none"></span> Volver</a></p>
                     </form>
+</div>
      <br>
 
 <?php require_once VIEW_PATH."footer.php"; ?>

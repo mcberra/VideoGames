@@ -1,4 +1,5 @@
 <?php
+//Al pulsar finalizar deshacemos la session carrito, es decir, vaciamos el carrito.
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";

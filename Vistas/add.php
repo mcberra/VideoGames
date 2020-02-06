@@ -1,6 +1,6 @@
 <?php
-//en este apartado hacemos que los indices del array siempre se incrementen en 1, de tal forma que, al borrar y volver introducir
-//un valores en el array los indices no coincidan con los que puedan haber quedado.
+//en este apartado es donde introducimos los productos en la session, los introducimos utilizando el propio nombre del producto como
+//nombre de los indices del array, para facilitar asi la busqueda de un producto en el propio array.
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";
@@ -14,7 +14,7 @@ require_once MODEL_PATH."alumno.php";
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 
-if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){//obtenemos el id pasado por get
     $id = decode($_GET["id"]);
     $controlador = ControladorAlumno::getControlador();
     $producto= $controlador->buscarAlumno($id);
@@ -23,10 +23,10 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         exit();
     } 
 }
-print_r($_SESSION['cart'][$producto->getNombre()][6]); 
-echo $producto->getNombre();
-echo "<br>";
-print_r($_SESSION['cart']);
+// print_r($_SESSION['cart'][$producto->getNombre()][6]); 
+// echo $producto->getNombre();
+// echo "<br>";
+// print_r($_SESSION['cart']);
 $uds = 1;
 
 
@@ -35,11 +35,11 @@ session_start();
 $_SESSION['temp']=[];
 
 
-if (!isset($_SESSION['cart'])) {
+if (!isset($_SESSION['cart'])) {//sino esta inicializada la session la creamos vacia
     $_SESSION['cart']=[];
    
 }
-if(!isset($_SESSION['indice'])){
+if(!isset($_SESSION['indice'])){//sino esta inicializada la session la creamos igualandola a 0
     $_SESSION['indice']=0;
 }
 // if(isset($_SESSION['indice'])){
@@ -47,7 +47,7 @@ if(!isset($_SESSION['indice'])){
 // }
 
 
-if(!isset($_SESSION['cart'])){
+if(!isset($_SESSION['cart'])){//se ejecutara la primera vez que añadamos un producto al carrito
     $_SESSION['ind'] = 0;
     $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
     $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
@@ -63,15 +63,7 @@ if(!isset($_SESSION['cart'])){
     //array_push($_SESSION['cart'],$_SESSION['temp']);
 }else{
 
-    // $nombre=$producto->getNombre();
-    // if (in_array($nombre,$_SESSION['cart'])) {
-    //     $_SESSION['cart'][$producto->getNombre()][6] = $_SESSION['cart'][$producto->getNombre()][6]+1;
-    //     exit();
-       
-    // }
-    $_SESSION['temp']=$_SESSION['cart'];
-    //$_SESSION['ind'] = count($_SESSION['temp']);
-    //$_SESSION['ind'] = $_SESSION['ind']+1;
+    $_SESSION['temp']=$_SESSION['cart'];//si ya esta creada la sesion se ejecuta este codigo para seguir añadiendo productos
 
     $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
     $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
@@ -84,26 +76,9 @@ if(!isset($_SESSION['cart'])){
     $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
 
     $_SESSION['cart']=$_SESSION['temp'];
-    //array_push($_SESSION['cart'],$_SESSION['temp']);
+
 }
 
-    // array_push($_SESSION['temp'],$producto->getId());
-    // array_push($_SESSION['temp'],$producto->getNombre());
-    // array_push($_SESSION['temp'],$producto->getImagen());
-    // array_push($_SESSION['temp'],$producto->getPrecio());
-    // array_push($_SESSION['temp'],$producto->getDescuento());
-    // array_push($_SESSION['temp'],$uds);
-    // array_push($_SESSION['temp'],$_SESSION['indice']);
-
-    
-    // $_SESSION["cart"]=[
-    //     $producto->getId() => $_SESSION['temp']
-    // ];
-
-echo "<br>";
-//print_r($items);
-echo "<br>";
-//print_r($_SESSION['cart']);
 header("Location: /games/indexCAT.php");
 
 ?>

@@ -218,7 +218,25 @@ class ControladorAlumno {
         return $estado;
     }
     
-  
+    public function buscarDuplicadoEmail($email){ 
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        $consulta = "SELECT * FROM usuarios  WHERE email = :email";
+        $parametros = array(':email' => $email);
+        $filas = $bd->consultarBD($consulta, $parametros);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        if (count($filas) > 0) {
+            foreach ($filas as $a) {
+                $usuario = new usuario($a->id, $a->nombre,  $a->apellido, $a->email, $a->password, $a->admin, $a->telefono,  $a->fecha, $a->imagen);
+                // Lo añadimos
+            }
+            $bd->cerrarBD();
+            return $usuario;
+        }else{
+            return null;
+        }    
+    } 
      
     
 }

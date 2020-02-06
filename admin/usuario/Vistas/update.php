@@ -56,31 +56,63 @@ if(empty($email)){
     $emailerr = $emailerr+1; 
 } 
 
+
+
 /*----------------------------------------------COMPROBACION PASSWORD-----------------------------------------------------------------*/
 $passwordErr = 0;
-$password = filtrado($_POST["password"]);
+$password = $_SESSION['USUARIO']['email'][8];
 if(empty($password) || strlen($password)<5){
     $passwordErr = $passwordErr+1;
     alerta("Por favor introduzca password válido y que sea mayor que 5 caracteres.");
-} else{
-    $password= hash('md5',$password);
-}
+} 
+
 
                        
 /*----------------------------------------------COMPROBACION FECHA-----------------------------------------------------------------*/
 
+$controlador = ControladorAlumno::getControlador();
+$usuario = $controlador->buscarDuplicadoEmail($email);
 
-$fecha = date("d-m-Y", strtotime(filtrado($_POST["fecha"])));
-$hoy =date("d-m-Y",time());
-$fechaerr = 0;
-$fecha_mat = new Datetime($fecha);
-$fecha_hoy = new Datetime($hoy);
-$intervalo = $fecha_hoy->diff($fecha_mat);
-if($intervalo->format('%R%a dias')>0){
-    $fechaerr = $fechaerr+1;
-    alerta("La fecha no puede ser superior a la fecha actual");
+function objectToArray2 ( $usuario ) {
+
+    if(!is_object($usuario) && !is_array($usuario)) {
+
+    return $usuario;
+
+    }
+    
+    return array_map( 'objectToArray2', (array) $usuario );
+
 }
 
+$temp_usu = objectToArray2($usuario);
+
+$array_usu = [];
+foreach ($temp_usu as $a) {
+    $a = array_shift($temp_usu);
+
+    array_push($array_usu,$a);
+}
+
+
+// if (isset($usuario) && $array_usu[0] != $_SESSION['USUARIO']['email'][2]) {
+    
+//         alerta("El e-mail que introdujo ya existe.");
+//         $emailerr = $emailerr+1;
+    
+// }
+
+// $fecha = date("d-m-Y", strtotime(filtrado($_POST["fecha"])));
+// $hoy =date("d-m-Y",time());
+// $fechaerr = 0;
+// $fecha_mat = new Datetime($fecha);
+// $fecha_hoy = new Datetime($hoy);
+// $intervalo = $fecha_hoy->diff($fecha_mat);
+// if($intervalo->format('%R%a dias')>0){
+//     $fechaerr = $fechaerr+1;
+//     alerta("La fecha no puede ser superior a la fecha actual");
+// }
+ $fecha = $array_usu[7];
 
   
 /*----------------------------------------------COMPROBACION IMAGEN-----------------------------------------------------------------*/
@@ -171,11 +203,17 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
  
 
 <?php require_once VIEW_PATH."header.php"; ?>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post" enctype="multipart/form-data">
-                    <table>
-                        <tr>
-                            <td class="col-xs-11" class="align-top">
+<center><img  src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' alt="Alps" style="width:50%"></center>
                                 <!-- DNI-->
                                 
                             <!-- Nombre-->
@@ -186,17 +224,7 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                             <label><b>Apellido</b></label><br>
                             <input type="text" name="apellido" class="w3-input" value="<?php echo $apellido; ?>"><br><br>
                                     
-                               
-                            </td>
-                            <!-- Fotogrsfía -->
-                            <td class="align-left">
-                                <label><b>Fotografía</b></label><br>
-                                <img src='<?php echo "../imagenes/" . $usuario->getImagen() ?>' class='rounded' class='img-thumbnail' width='48' height='auto'>
-                            </td>
-                        </tr>
-                    </table>
 
-                        
 
                         <!-- Email -->
               
@@ -224,7 +252,7 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                         <!-- Fecha-->
               
                         <label><b>Fecha de Matriculación</b></label><br>
-                            <input type="date" required name="fecha" value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));?>"></input><br><br>
+                            <input type="date" disabled name="fecha" value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $fecha)));?>"></input><br><br>
                          
                     
                          <!-- Foto-->
@@ -236,9 +264,10 @@ if (   $nombreerr == 0 && $mod = true && $emailerr == 0 && $passwordErr == 0  &&
                      
                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                         <input type="hidden" name="imagenAnterior" value="<?php echo $imagenAnterior; ?>"/>
-                        <button type="submit" value="Enviar" class="w3-btn w3-green"> </span>  Modificar</button>
-                        <a href="/games/admin/usuario/gestion.php" class="w3-btn w3-blue"></span> Volver</a>
+                        <button type="submit" value="Enviar" class="w3-btn w3-white w3-border w3-border-green w3-round-large"> </span>  Modificar</button>
+                        <a href="/games/admin/usuario/gestion.php" class="w3-btn w3-white w3-border w3-border-green w3-round-large" style="text-decoration:none"></span> Volver</a>
                     </form>
+</div>
      <br>
 
 <?php require_once VIEW_PATH."footer.php"; ?>

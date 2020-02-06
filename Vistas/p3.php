@@ -65,57 +65,57 @@
                     
                     // }
 
-                    function objectToArray1 ( $item ) {
+                    // function objectToArray1 ( $item ) {
 
-                        if(!is_object($item) && !is_array($item)) {
+                    //     if(!is_object($item) && !is_array($item)) {
                     
-                        return $item;
+                    //     return $item;
                     
-                        }
+                    //     }
                         
-                        return array_map( 'objectToArray1', (array) $item );
+                    //     return array_map( 'objectToArray1', (array) $item );
                     
-                    }
+                    // }
                     
-                    foreach ($_SESSION["cart"] as $key => $value) {
-                            //echo $value[6];
-                            $nombre = $value[1];
-                            $controlador = ControladorAlumno::getControlador();
-                            $item = $controlador->buscarStock($nombre);
+                    // foreach ($_SESSION["cart"] as $key => $value) {
+                    //         //echo $value[6];
+                    //         $nombre = $value[1];
+                    //         $controlador = ControladorAlumno::getControlador();
+                    //         $item = $controlador->buscarStock($nombre);
 
                            
-                        if (!is_array($item )) {
-                            $temp_stock = objectToArray1 ( $item );
-                            //echo "es un array";
-                        }else {
-                            $temp_stock =   $item;
-                            //echo "no es un array";
-                        }
+                    //     if (!is_array($item )) {
+                    //         $temp_stock = objectToArray1 ( $item );
+                    //         //echo "es un array";
+                    //     }else {
+                    //         $temp_stock =   $item;
+                    //         //echo "no es un array";
+                    //     }
 
-                         //print_r($temp_stock);
+                    //      //print_r($temp_stock);
                     
-                        $compra_stock = [];
-                        foreach ($temp_stock as $a) {
-                            $a = array_shift($temp_stock);
+                    //     $compra_stock = [];
+                    //     foreach ($temp_stock as $a) {
+                    //         $a = array_shift($temp_stock);
                         
-                            array_push($compra_stock,$a);
-                        }
-                        echo "<br>";
-                        $stock_left = $compra_stock[6] - $value[6];
-                        print_r("stock total : " .$compra_stock[6]. ", unidades a comprar: ".$value[6]. ", stock restante: ".$stock_left);
-                        echo "<br>";
+                    //         array_push($compra_stock,$a);
+                    //     }
+                    //     echo "<br>";
+                    //     $stock_left = $compra_stock[6] - $value[6];
+                    //     print_r("stock total : " .$compra_stock[6]. ", unidades a comprar: ".$value[6]. ", stock restante: ".$stock_left);
+                    //     echo "<br>";
 
-                        $stock = $stock_left;
-                        print_r($stock);
-                        echo "<br>";
-                        print_r($nombre);
-                        echo "<br>";
+                    //     $stock = $stock_left;
+                    //     print_r($stock);
+                    //     echo "<br>";
+                    //     print_r($nombre);
+                    //     echo "<br>";
 
-                        $controlador = ControladorAlumno::getControlador();
-                        $estado = $controlador->actualizarStock( $stock,  $nombre );
+                    //     $controlador = ControladorAlumno::getControlador();
+                    //     $estado = $controlador->actualizarStock( $stock,  $nombre );
 
-                        //print($estado);
-                    }   
+                    //     //print($estado);
+                    // }   
                     
                     // $nombre = "Halo 4";
                     // $stock = "27";
@@ -125,5 +125,9 @@
                     // $parametros= array(  ':nombre'=>$nombre, ':stock'=>$stock );
                     // $estado = $bd->actualizarBD($consulta,$parametros);
                     // $bd->cerrarBD();
+
+
+
+  print_r($_SESSION['USUARIO']['email'][2])
 
 ?>

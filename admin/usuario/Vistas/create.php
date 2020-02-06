@@ -195,8 +195,16 @@ if($intervalo->format('%R%a dias')>0){
 ?>
 <?php require_once VIEW_PATH."header.php"; ?>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<h1><b>Crear Usuario</b></h1>
-        <p><b>Por favor rellene este formulario para añadir un nuevo usuario a la base de datos de la clase.</b></p>
+<style>
+	#centrar
+	{
+        margin: 0 auto;
+        padding:50px;
+	}
+</style>
+<div class="w3-card-4" style='width:35%;margin-top:25px' id="centrar"  >
+<h1 style="text-align:center"><b>Crear Usuario</b></h1><br><br><br>
+        
             <!-- Formulario-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                     <!-- Nombre-->
@@ -217,6 +225,8 @@ if($intervalo->format('%R%a dias')>0){
                             <input type="password" required name="password"  class="w3-input" value="<?php //echo $password; ?>"
                             minlength="5" ><br>
 
+
+
                         <!-- Administrador -->
                     <label><b>Administrador</b></label><br>
                             <input type="radio" name="admin" class="w3-radio" value="si" <?php echo (strstr($admin, 'si')) ? 'checked' : ''; ?>>si</input>
@@ -230,14 +240,15 @@ if($intervalo->format('%R%a dias')>0){
                          <!-- Foto-->
                     <label><b>Fotografía</b></label><br>
                         <!-- Solo acepto imagenes jpg -->
-                            <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br>    
+                            <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg"><br> <br><br>   
                         <!-- Botones --> 
-                        <p> 
-                            <input type="submit" name="Enviar" value="Enviar" class="w3-btn w3-blue"> 
-                            <input type="reset" name="Limpiar" value="Limpiar" class="w3-btn w3-red" >
+                        <p style="text-align:center"> 
+                            <input type="submit" name="Enviar" value="Enviar" class="w3-btn w3-green w3-border  w3-round-large"> 
+                            <input type="reset" name="Limpiar" value="Limpiar" class="w3-btn w3-red w3-border  w3-round-large" >
+                            <a href="/games/admin/usuario/gestion.php" class="w3-btn w3-blue w3-border  w3-round-large" style="text-decoration:none"></span> Volver</a>
                         </p>
                 
 
         </form>
-
+</div>
 <?php require_once VIEW_PATH."footer.php"; ?>

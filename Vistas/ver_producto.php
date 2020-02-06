@@ -1,4 +1,5 @@
 <?php
+//en esta pagina vemos toda la informacion acerca del producto
         require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
         require_once CONTROLLER_PATH."ControladorAlumno.php";
         require_once UTILITY_PATH."funciones.php";
@@ -7,7 +8,7 @@
 
         error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
-
+//buscamos los datos del producto desde la BBDD con el id y los pintamos
         if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             $id = decode($_GET["id"]);
             $controlador = ControladorAlumno::getControlador();
@@ -19,12 +20,14 @@
         }
 ?>
 <?php require_once VIEW_PATH."header.php"; ?>
+
 <style>
 	#centrar
 	{
         margin: 0 auto;
 	}
 </style>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
 
