@@ -27,57 +27,47 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){//obtenemos el id pasado por
 // echo $producto->getNombre();
 // echo "<br>";
 // print_r($_SESSION['cart']);
-$uds = 1;
+
 
 
 session_start();
-
-$_SESSION['temp']=[];
-
 
 if (!isset($_SESSION['cart'])) {//sino esta inicializada la session la creamos vacia
     $_SESSION['cart']=[];
    
 }
-if(!isset($_SESSION['indice'])){//sino esta inicializada la session la creamos igualandola a 0
-    $_SESSION['indice']=0;
-}
-// if(isset($_SESSION['indice'])){
-//     $_SESSION['indice']=$_SESSION['indice']+1;
-// }
+
+$uds = 1;
 
 
-if(!isset($_SESSION['cart'])){//se ejecutara la primera vez que añadamos un producto al carrito
-    $_SESSION['ind'] = 0;
-    $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
-    $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
-    $_SESSION['temp'][$producto->getNombre()]['2']=$producto->getImagen();
-    $_SESSION['temp'][$producto->getNombre()]['3']=$producto->getPrecio();
-    $_SESSION['temp'][$producto->getNombre()]['4']=$producto->getDescuento();
-    $_SESSION['temp'][$producto->getNombre()]['5']=$producto->getStock();
-    $_SESSION['temp'][$producto->getNombre()]['6']=$uds;
-    //$_SESSION['indice']=$indice;
-    $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
+// if(!isset($_SESSION['cart'])){//se ejecutara la primera vez que añadamos un producto al carrito
+//     $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
+//     $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
+//     $_SESSION['temp'][$producto->getNombre()]['2']=$producto->getImagen();
+//     $_SESSION['temp'][$producto->getNombre()]['3']=$producto->getPrecio();
+//     $_SESSION['temp'][$producto->getNombre()]['4']=$producto->getDescuento();
+//     $_SESSION['temp'][$producto->getNombre()]['5']=$producto->getStock();
+//     $_SESSION['temp'][$producto->getNombre()]['6']=$uds;
+//     $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
 
-    $_SESSION['cart']=$_SESSION['temp'];
-    //array_push($_SESSION['cart'],$_SESSION['temp']);
-}else{
+//     $_SESSION['cart']=$_SESSION['temp'];
 
-    $_SESSION['temp']=$_SESSION['cart'];//si ya esta creada la sesion se ejecuta este codigo para seguir añadiendo productos
+//}else{
 
-    $_SESSION['temp'][$producto->getNombre()]['0']=$producto->getId();
-    $_SESSION['temp'][$producto->getNombre()]['1']=$producto->getNombre();
-    $_SESSION['temp'][$producto->getNombre()]['2']=$producto->getImagen();
-    $_SESSION['temp'][$producto->getNombre()]['3']=$producto->getPrecio();
-    $_SESSION['temp'][$producto->getNombre()]['4']=$producto->getDescuento();
-    $_SESSION['temp'][$producto->getNombre()]['5']=$producto->getStock();
-    $_SESSION['temp'][$producto->getNombre()]['6']=$uds;
-    //$_SESSION['indice']=$_SESSION['ind'] +  1;
-    $_SESSION['temp'][$producto->getNombre()]['7']=$producto->getNombre();
+    //$_SESSION['temp']=$_SESSION['cart'];//si ya esta creada la sesion se ejecuta este codigo para seguir añadiendo productos
 
-    $_SESSION['cart']=$_SESSION['temp'];
+    $_SESSION['cart'][$producto->getNombre()]['0']=$producto->getId();
+    $_SESSION['cart'][$producto->getNombre()]['1']=$producto->getNombre();
+    $_SESSION['cart'][$producto->getNombre()]['2']=$producto->getImagen();
+    $_SESSION['cart'][$producto->getNombre()]['3']=$producto->getPrecio();
+    $_SESSION['cart'][$producto->getNombre()]['4']=$producto->getDescuento();
+    $_SESSION['cart'][$producto->getNombre()]['5']=$producto->getStock();
+    $_SESSION['cart'][$producto->getNombre()]['6']=$uds;
 
-}
+
+    //$_SESSION['cart']=$_SESSION['temp'];
+
+//}
 
 header("Location: /games/indexCAT.php");
 

@@ -160,8 +160,6 @@ if($intervalo->format('%R%a dias')>0){
         $controlador = ControladorAlumno::getControlador();
         $estado = $controlador->almacenarAlumno( $nombre, $apellido, $email, $password, $admin, $telefono, $fecha, $imagen);
         if($estado){
-            $controladorS = ControladorAlumno::getControlador();
-            $estadoS = $controlador->almacenarSesion( $email, $password, $admin);
             //El registro se ha lamacenado corectamente
             //alerta("Alumno/a creado con éxito");
             header("location: /games/indexCAT.php");

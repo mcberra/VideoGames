@@ -1,4 +1,6 @@
-<?php require_once "Paths.php";?>
+<?php 
+//esta pagina sirve para coloca el navbar vertical y alberga el listado
+require_once "Paths.php";?>
 <?php require_once VIEW_PATH."header.php"; ?>
 <br>
 <style>

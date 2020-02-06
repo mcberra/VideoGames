@@ -55,16 +55,7 @@ require_once CONTROLLER_PATH . "Paginador.php";
    
 $controlador = ControladorAlumno::getControlador();
 
-// Parte del paginador
-// $pagina = ( isset($_GET['page']) ) ? $_GET['page'] : 1;
-// $enlaces = ( isset($_GET['enlaces']) ) ? $_GET['enlaces'] : 10;
 
-// $consulta = "SELECT * FROM producto WHERE nombre LIKE :nombre ";
-// $parametros = array(':nombre' => "%".$nombre."%");
-// $limite = 4; // Limite del paginador
-// $paginador  = new Paginador($consulta, $parametros, $limite);
-// $resultados = $paginador->getDatos($pagina);
-//print_r($_SESSION['USUARIO']['email'][0]);
 echo "<div class='all'>";
     echo "<div class='w3-margin-bottom'>";
     $_SESSION['total']=[];
@@ -76,7 +67,7 @@ echo "<div class='all'>";
                         echo "<div class='w3-card-4 w3-margin' style='width:22% ' id='box2'>";
                         echo '<div class="w3-display-container w3-text-black">';
                             echo "<a href='/games/Vistas/ver_producto_desde_carrito.php?id=" . encode($detalles[0]) . "' ><img src='/games/admin/producto/imagenes/".$detalles[2] ."' style='width:100%' class='w3-button'> <img></a>";
-                            echo  "<p style='text-align:center'><a href='/games/Vistas/actualizar_carrito.php?resta=".encode($detalles[7])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-minus-sign'></span> </a><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large'>Unidades [ " .$detalles[6] ." ]</button><a href='/games/Vistas/actualizar_carrito.php?suma=".encode($detalles[7])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-plus-sign'></span> </a></p><br>";
+                            echo  "<p style='text-align:center'><a href='/games/Vistas/actualizar_carrito.php?resta=".encode($detalles[1])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-minus-sign'></span> </a><button class='w3-btn w3-white w3-border w3-border-grey w3-round-large' style='font-size:120%'>Unidades [ " .$detalles[6] ." ]</button><a href='/games/Vistas/actualizar_carrito.php?suma=".encode($detalles[1])."' class='btn btn-info btn-lg'><span class='glyphicon glyphicon-plus-sign'></span> </a></p><br>";
                             $descuento=$detalles[4];  
                             if ($descuento > 0) {//calculamos el descuento si lo tiene
                                 $price=($detalles[3])-($detalles[3]*$detalles[4]/100);
@@ -107,7 +98,7 @@ echo "<div class='all'>";
                             
                             echo "</div>";
                             echo '<div class="w3-third w3-center w3-margin-bottom">';                            
-                            echo "<p><a href='/games/Vistas/delete_item.php?id=".encode($detalles[7])."' title='Mas informacion' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'> Borrar</a></p>";
+                            echo "<p><a href='/games/Vistas/delete_item.php?id=".encode($detalles[1])."' title='Mas informacion' data-toggle='tooltip'class='w3-btn w3-white w3-border w3-border-green w3-round-large'> Borrar</a></p>";
                             echo "</div>";
                         echo "</div>";
                     echo "</div>"; 

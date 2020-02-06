@@ -9,8 +9,8 @@ require_once MODEL_PATH."alumno.php";
 
 session_start();
 unset($_SESSION['cart']);
-session_unset();
-session_destroy();
+session_unset($_SESSION['cart']);
+session_destroy($_SESSION['cart']);
 header("Location: /games/Vistas/carrito.php");
 
 ?>

@@ -94,7 +94,7 @@ if(empty($password) || strlen($password)<5){
     $passwordErr = $passwordErr+1;
     alerta("Por favor introduzca password válido y que sea mayor que 5 caracteres.");
 } else{
-    $password= hash('md5',$password);
+    $password = filtrado($_POST["password"]);
 }
 
                        
