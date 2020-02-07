@@ -10,7 +10,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 session_start();
   
 
-if (isset($_GET["suma"])) {//si recibimos la variable suma por get esto se ejecuta
+if (isset($_GET["suma"])) {//si recibimos la variable suma por get esto se ejecuta y sumamos 1 a las unidades de ese producto
     $suma = decode($_GET["suma"]);
     
     if ($_SESSION['cart'][$suma][6] >= $_SESSION['cart'][$suma][5]) {
@@ -23,7 +23,7 @@ if (isset($_GET["suma"])) {//si recibimos la variable suma por get esto se ejecu
 
 }
 
-if (isset($_GET["resta"])) {//si recibimos la variable resta por get esto se ejecuta
+if (isset($_GET["resta"])) {//si recibimos la variable resta por get esto se ejecuta y restamos 1 a las unidades 
     $resta = decode($_GET["resta"]);
     if ($_SESSION['cart'][$resta][6] < 2 ) {
         alerta("Solo le queda un objeto de este tipo en el carrito, si quiere borrarlo pulse borrar.");

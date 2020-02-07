@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Pagar"]) {
         $controlador = ControladorAlumno::getControlador();
         $estado = $controlador->actualizarStock( $stock_actualizado,  $nombre ); //finalmente actualizamos el stock en la BBDD
 
- //todo este proceso va dentro de un foreah para que lo realize por cada uno de los productos dentro del array carrito       
+ //todo este proceso va dentro de un foreach para que lo realize por cada uno de los productos dentro del array carrito       
     } 
 
     if ($id_compraerr == 0 && $numero_tarjetaerr == 0 && $totalerr == 0 && $fechaerr == 0 ) {//comprobamos errores
@@ -136,10 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Pagar"]) {
 <!------ Include the above in your HEAD tag ---------->
 
 <style>
-/* body { margin-top:20px; } */
-/* .panel-title {display: inline;font-weight: bold;} */
-/* .checkbox.pull-right { margin: 0; } */
-/* .pl-ziro { padding-left: 0px; } */
 #centrar
 	{
 
@@ -171,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Pagar"]) {
                         <label for="cardNumber">
                             CARD NUMBER</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" minlength="13" required name="numero_tarjeta" id="cardNumber" placeholder="Valid Card Number"
+                            <input type="number" class="form-control" minlenght="13" required name="numero_tarjeta" id="cardNumber" placeholder="Valid Card Number"
                                 required autofocus />
                             
                         </div>
@@ -183,17 +179,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Pagar"]) {
                                 <label for="expityMonth">
                                     EXPIRY DATE</label>
                                 <div class="">
-                                    <input type="number" name="expiry_date1" required class="form-control" maxlenght="2" id="expityMonth" placeholder="MM" required />
+                                    <input type="number" name="expiry_date1" required minlenght="2" class="form-control" maxlenght="2" id="expityMonth" placeholder="MM" required />
                                 </div>
                                 <div class="">
-                                    <input type="number" name="expiry_date2" required class="form-control" maxlenght="2" id="expityYear" placeholder="YY" required /></div>
+                                    <input type="number" name="expiry_date2" required minlenght="2" class="form-control" maxlenght="2" id="expityYear" placeholder="YY" required /></div>
                             </div>
                         </div>
                         <div class="col-xs-5 col-md-5 pull-right">
                             <div class="form-group">
                                 <label for="cvCode">
                                     CV CODE</label>
-                                <input type="password" name="cv_code" required class="form-control" id="cvCode" placeholder="CV" required />
+                                <input type="password" name="cv_code" required minlenght="3" class="form-control" id="cvCode" placeholder="CV" required />
                             </div>
                         </div>
                     </div>

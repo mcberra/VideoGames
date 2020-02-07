@@ -1,5 +1,5 @@
 <?php
-//es una pagina muy simple que simplemente que elimina el indice indicado del array
+//es una pagina muy simple que simplemente  elimina el indice indicado del array
 require_once $_SERVER['DOCUMENT_ROOT']."/games/Paths.php";
 require_once CONTROLLER_PATH."ControladorAlumno.php";
 require_once CONTROLLER_PATH."ControladorImagen.php";
